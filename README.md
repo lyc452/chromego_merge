@@ -12,29 +12,17 @@
 ### Clash Meta 客户端订阅
 
 ```
-https://github.com/lyc452/chromego_merge/raw/main/sub/merged_proxies_new.yaml
-```
-或者
-```
 https://cdn.jsdelivr.net/gh/lyc452/chromego_merge/sub/merged_proxies_new.yaml
 ```
 
 ### 通用 base64 订阅
 
 ```
-https://github.com/lyc452/chromego_merge/raw/main/sub/base64.txt
-```
-或者
-```
 https://cdn.jsdelivr.net/gh/lyc452/chromego_merge/sub/base64.txt
 ```
 
 ### sing-box 订阅（适用于 1.8.0 以上）
 
-```
-https://github.com/lyc452/chromego_merge/raw/main/sub/sing-box.json
-```
-或者
 ```
 https://cdn.jsdelivr.net/gh/lyc452/chromego_merge/sub/sing-box.json
 ```
