@@ -1480,7 +1480,7 @@ proxies:
     path: github.com/Alvin9999
     headers:
       Host: ip1.1789034.xyz
-- name: United States_None_vmess_098
+- name: None_None_vmess_098
   type: vmess
   server: russia.com
   port: 2086
@@ -3022,7 +3022,7 @@ proxies:
   uuid: 418048af-a293-4b99-9b0c-98ca3580dd24
 - alterId: 0
   cipher: auto
-  name: China_Guangzhou_vmess_1144
+  name: China_Shenzhen_vmess_1144
   network: ws
   port: 46001
   server: mmhk01.micloud.buzz
@@ -3181,7 +3181,7 @@ proxies:
   uuid: 418048af-a293-4b99-9b0c-98ca3580dd24
 - alterId: 0
   cipher: auto
-  name: China_Guangzhou_vmess_1157
+  name: China_Shenzhen_vmess_1157
   network: ws
   port: '46001'
   server: mmhk01.micloud.buzz
@@ -3454,7 +3454,7 @@ proxy-groups:
   - United States_None_vmess_095
   - United States_None_vmess_096
   - None_None_vmess_097
-  - United States_None_vmess_098
+  - None_None_vmess_098
   - United States_None_vmess_099
   - None_None_vmess_0100
   - None_None_vmess_0101
@@ -3558,7 +3558,7 @@ proxy-groups:
   - None_None_vmess_1141
   - United States_None_vmess_1142
   - China_None_vmess_1143
-  - China_Guangzhou_vmess_1144
+  - China_Shenzhen_vmess_1144
   - China_None_trojan_1145
   - Hong Kong_Central_trojan_1146
   - None_None_vmess_1147
@@ -3571,7 +3571,7 @@ proxy-groups:
   - None_None_vmess_1154
   - None_None_vmess_1155
   - China_None_vmess_1156
-  - China_Guangzhou_vmess_1157
+  - China_Shenzhen_vmess_1157
   - China_None_trojan_1158
   - China_None_trojan_1159
   - Sweden_Stockholm_trojan_1160
@@ -3690,7 +3690,7 @@ proxy-groups:
   - United States_None_vmess_095
   - United States_None_vmess_096
   - None_None_vmess_097
-  - United States_None_vmess_098
+  - None_None_vmess_098
   - United States_None_vmess_099
   - None_None_vmess_0100
   - None_None_vmess_0101
@@ -3794,7 +3794,7 @@ proxy-groups:
   - None_None_vmess_1141
   - United States_None_vmess_1142
   - China_None_vmess_1143
-  - China_Guangzhou_vmess_1144
+  - China_Shenzhen_vmess_1144
   - China_None_trojan_1145
   - Hong Kong_Central_trojan_1146
   - None_None_vmess_1147
@@ -3807,7 +3807,7 @@ proxy-groups:
   - None_None_vmess_1154
   - None_None_vmess_1155
   - China_None_vmess_1156
-  - China_Guangzhou_vmess_1157
+  - China_Shenzhen_vmess_1157
   - China_None_trojan_1158
   - China_None_trojan_1159
   - Sweden_Stockholm_trojan_1160
