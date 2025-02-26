@@ -12,19 +12,19 @@
 ### Clash Meta 客户端订阅
 
 ```
-https://chromego-sub.netlify.app/sub/merged_proxies_new.yaml
+https://raw.githubusercontent.com/lyc452/chromego_merge/refs/heads/hysteria/sub/merged_proxies_new.yaml
 ```
 
 ### 通用 base64 订阅
 
 ```
-https://chromego-sub.netlify.app/sub/base64.txt
+https://raw.githubusercontent.com/lyc452/chromego_merge/refs/heads/hysteria/sub/base64.txt
 ```
 
 ### sing-box 订阅（适用于 1.8.0 以上）
 
 ```
-https://chromego-sub.netlify.app/sub/sing-box.json
+https://raw.githubusercontent.com/lyc452/chromego_merge/refs/heads/hysteria/sub/sing-box.json
 ```
 
 
