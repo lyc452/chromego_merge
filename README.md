@@ -21,12 +21,6 @@ https://github.com/lyc452/chromego_merge/raw/refs/heads/main/sub/merged_proxies_
 https://github.com/lyc452/chromego_merge/raw/refs/heads/main/sub/base64.txt
 ```
 
-### sing-box 订阅（适用于 1.8.0 以上）
-
-```
-https://github.com/lyc452/chromego_merge/raw/refs/heads/main/sub/sing-box.json
-```
-
 
 ## 客户端推荐
 
