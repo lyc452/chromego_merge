@@ -25,13 +25,13 @@ def process_urls(url_file, processor):
 
 
 # 提取clash节点
-# def process_clash(data, index):
-    # content = yaml.safe_load(data)
-    # proxies = content.get("proxies", [])
-    # for i, proxy in enumerate(proxies):
-        # location = get_physical_location(proxy["server"])
-        # proxy["name"] = f"{location}_{proxy['type']}_{index}{i+1}"
-    # merged_proxies.extend(proxies)
+def process_clash(data, index):
+    content = yaml.safe_load(data)
+    proxies = content.get("proxies", [])
+    for i, proxy in enumerate(proxies):
+        location = get_physical_location(proxy["server"])
+        proxy["name"] = f"{location}_{proxy['type']}_{index}{i+1}"
+    merged_proxies.extend(proxies)
 
 
 def get_physical_location(address):
