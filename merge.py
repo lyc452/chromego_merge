@@ -357,7 +357,7 @@ def process_xray(data, index):
 merged_proxies = []
 
 # 处理 clash URLs
-process_urls("./urls/clash_urls.txt", process_clash)
+# process_urls("./urls/clash_urls.txt", process_clash)
 
 # 处理 shadowtls URLs
 # process_urls('./urls/sb_urls.txt', process_sb)
@@ -372,7 +372,7 @@ process_urls("./urls/hysteria_urls.txt", process_hysteria)
 process_urls("./urls/hysteria2_urls.txt", process_hysteria2)
 
 # 处理 xray URLs
-process_urls("./urls/xray_urls.txt", process_xray)
+# process_urls("./urls/xray_urls.txt", process_xray)
 
 # 将结果写入文件
 merged_content = "\n".join(merged_proxies)
