@@ -24,17 +24,22 @@ def process_urls(url_file, processor):
         logging.error(f"Error reading file {url_file}: {e}")
 
 
-# 提取clash节点（添加类型过滤）
+# 提取clash节点（严格类型过滤）
 def process_clash(data, index):
     content = yaml.safe_load(data)
     proxies = content.get("proxies", [])
-    for i, proxy in enumerate(proxies):
-        # 仅保留hysteria和hysteria2类型
+    
+    filtered_proxies = []
+    for proxy in proxies:
+        # 严格类型过滤：仅保留hysteria/hysteria2，且显式跳过其他类型
         if proxy.get("type") not in ["hysteria", "hysteria2"]:
             continue
+        # 处理地理位置和重命名
         location = get_physical_location(proxy["server"])
-        proxy["name"] = f"{location}_{proxy['type']}_{index}{i+1}"
-    merged_proxies.extend(proxies)
+        proxy["name"] = f"{location}_{proxy['type']}_{index}{len(filtered_proxies)+1}"
+        filtered_proxies.append(proxy)
+    
+    merged_proxies.extend(filtered_proxies)  # 仅添加过滤后的代理
 
 
 def get_physical_location(address):
