@@ -113,6 +113,62 @@ proxies:
   fast-open: true
   sni: www.bing.com
   skip-cert-verify: true
+- name: Taiwan_Banqiao_reality_0
+  type: vless
+  server: 1.162.51.106
+  port: 37898
+  uuid: ec302de4-6b3d-4f03-a228-3c6d303ed370
+  network: tcp
+  tls: true
+  udp: true
+  flow: xtls-rprx-vision
+  client-fingerprint: chrome
+  servername: www.yahoo.com
+  reality-opts:
+    public-key: v6uWJJmVGFPd0K040QK3PJHCbPc74kXFoQmAhpu30jQ
+    short-id: e12d7fdb
+- name: Taiwan_Banqiao_reality_1
+  type: vless
+  server: 1.162.51.106
+  port: 37898
+  uuid: ec302de4-6b3d-4f03-a228-3c6d303ed370
+  network: tcp
+  tls: true
+  udp: true
+  flow: xtls-rprx-vision
+  client-fingerprint: chrome
+  servername: www.yahoo.com
+  reality-opts:
+    public-key: v6uWJJmVGFPd0K040QK3PJHCbPc74kXFoQmAhpu30jQ
+    short-id: e12d7fdb
+- name: Taiwan_Banqiao_reality_2
+  type: vless
+  server: 1.162.51.106
+  port: 37898
+  uuid: ec302de4-6b3d-4f03-a228-3c6d303ed370
+  network: tcp
+  tls: true
+  udp: true
+  flow: xtls-rprx-vision
+  client-fingerprint: chrome
+  servername: www.yahoo.com
+  reality-opts:
+    public-key: v6uWJJmVGFPd0K040QK3PJHCbPc74kXFoQmAhpu30jQ
+    short-id: e12d7fdb
+- name: Taiwan_Banqiao_reality_3
+  type: vless
+  server: 1.162.51.106
+  port: 37898
+  uuid: ec302de4-6b3d-4f03-a228-3c6d303ed370
+  network: tcp
+  tls: true
+  udp: true
+  flow: xtls-rprx-vision
+  client-fingerprint: chrome
+  servername: www.yahoo.com
+  reality-opts:
+    public-key: v6uWJJmVGFPd0K040QK3PJHCbPc74kXFoQmAhpu30jQ
+    short-id: e12d7fdb
 proxy-groups:
 - name: 节点选择
   type: select
@@ -127,6 +183,10 @@ proxy-groups:
   - Russia_Moscow_hy2_1
   - Russia_Moscow_hy2_2
   - Russia_Moscow_hy2_3
+  - Taiwan_Banqiao_reality_0
+  - Taiwan_Banqiao_reality_1
+  - Taiwan_Banqiao_reality_2
+  - Taiwan_Banqiao_reality_3
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
@@ -141,6 +201,10 @@ proxy-groups:
   - Russia_Moscow_hy2_1
   - Russia_Moscow_hy2_2
   - Russia_Moscow_hy2_3
+  - Taiwan_Banqiao_reality_0
+  - Taiwan_Banqiao_reality_1
+  - Taiwan_Banqiao_reality_2
+  - Taiwan_Banqiao_reality_3
 rules:
 - DOMAIN,clash.razord.top,DIRECT
 - DOMAIN,yacd.haishan.me,DIRECT
