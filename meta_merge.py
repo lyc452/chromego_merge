@@ -119,12 +119,52 @@ def process_hysteria2(data, index):
     except Exception as e:
         logging.error(f"Error processing hysteria2 data for index {index}: {e}")
 
-
 def update_proxy_groups(config_data, merged_proxies):
+    auto_group = None
+    select_group = None
+    
+    # 查找自动选择和节点选择组
     for group in config_data["proxy-groups"]:
-        if group["name"] in ["自动选择", "节点选择"]:
-            group["proxies"] = [proxy["name"] for proxy in merged_proxies]
+        if group["name"] == "自动选择":
+            auto_group = group
+        elif group["name"] == "节点选择":
+            select_group = group
 
+    # 确保自动选择组存在且包含所有节点
+    if auto_group:
+        auto_group["proxies"] = [proxy["name"] for proxy in merged_proxies]
+    else:
+        auto_group = {
+            "name": "自动选择",
+            "type": "url-test",
+            "url": "http://www.gstatic.com/generate_204",
+            "interval": 300,
+            "tolerance": 50,
+            "proxies": [proxy["name"] for proxy in merged_proxies]
+        }
+        config_data["proxy-groups"].append(auto_group)
+
+    # 确保节点选择组包含自动选择+所有节点
+    if select_group:
+        # 先添加自动选择，再添加去重后的节点（排除自动选择自身）
+        select_proxies = ["自动选择"] + list(
+            {proxy["name"] for proxy in merged_proxies}
+        )
+        select_group["proxies"] = select_proxies
+    else:
+        select_group = {
+            "name": "节点选择",
+            "type": "select",
+            "proxies": ["自动选择"] + [proxy["name"] for proxy in merged_proxies]
+        }
+        config_data["proxy-groups"].insert(0, select_group)  # 确保在最前
+
+    # 移除可能的重复项
+    seen = set()
+    select_group["proxies"] = [
+        x for x in select_group["proxies"] 
+        if not (x in seen or seen.add(x))
+    ]
 
 merged_proxies = []
 
