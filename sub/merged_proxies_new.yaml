@@ -159,18 +159,18 @@ proxy-groups:
   type: select
   proxies:
   - 自动选择
-  - Russia_None_hy_3
+  - Russia_None_hy_0
+  - Russia_None_hysteria_81
   - Russia_Moscow_hy2_1
+  - Russia_Moscow_hy2_0
+  - United States_None_hysteria_91
   - United States_None_hysteria_61
   - Russia_Moscow_hy2_2
-  - United States_None_hysteria_91
   - United States_Los Angeles_hysteria_71
-  - Russia_None_hy_0
   - Russia_None_hy_1
-  - Russia_Moscow_hy2_0
   - Russia_None_hy_2
-  - Russia_None_hysteria_81
   - Russia_Moscow_hy2_3
+  - Russia_None_hy_3
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
