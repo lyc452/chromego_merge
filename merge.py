@@ -7,7 +7,7 @@ import logging
 import geoip2.database
 import socket
 import re
-
+from collections import OrderedDict
 
 # 提取节点
 def process_urls(url_file, processor):
@@ -45,6 +45,9 @@ def get_physical_location(address):
     except geoip2.errors.AddressNotFoundError as e:
         print(f"Error: {e}")
         return "Unknown"
+    except Exception as e:
+        logging.error(f"Error getting location for {address}: {e}")
+        return "Unknown"
 
 
 # 提取clash节点
@@ -54,7 +57,52 @@ def process_clash(data, index):
 
     # 提取proxies部分并合并到merged_proxies中
     proxies = content.get("proxies", [])
+    
+    # 只处理hysteria和hysteria2节点
+    for proxy in proxies:
+        if proxy["type"] not in ["hysteria", "hysteria2"]:
+            continue
+            
+        # 如果类型是hysteria2
+        if proxy["type"] == "hysteria2":
+            server = proxy.get("server", "")
+            port = int(proxy.get("port", 443))
+            auth = proxy.get("password", "")
+            obfs = proxy.get("obfs", "")
+            obfs_password = proxy.get("obfs-password", "")
+            sni = proxy.get("sni", "")
+            insecure = int(proxy.get("skip-cert-verify", 0))
+            location = get_physical_location(server)
+            name = f"{location}_hy2_{index}"
+            hy2_meta = f"hysteria2://{auth}@{server}:{port}?insecure={insecure}&sni={sni}&obfs={obfs}&obfs-password={obfs_password}#{name}"
+            merged_proxies.append(hy2_meta)
 
+        # 如果类型是hysteria
+        elif proxy["type"] == "hysteria":
+            server = proxy.get("server", "")
+            port = int(proxy.get("port", 443))
+            ports = proxy.get("port", "")
+            protocol = proxy.get("protocol", "udp")
+            up_mbps = 50
+            down_mbps = 80
+            alpn = (
+                proxy.get("alpn", [])[0]
+                if proxy.get("alpn") and len(proxy["alpn"]) > 0
+                else None
+            )
+            obfs = proxy.get("obfs", "")
+            insecure = int(proxy.get("skip-cert-verify", 0))
+            sni = proxy.get("sni", "")
+            fast_open = int(proxy.get("fast_open", 1))
+            auth = proxy.get("auth-str", "")
+            # 生成URL
+            location = get_physical_location(server)
+            name = f"{location}_hy_{index}"
+            hysteria_meta = f"hysteria://{server}:{port}?peer={sni}&auth={auth}&insecure={insecure}&upmbps={up_mbps}&downmbps={down_mbps}&alpn={alpn}&mport={ports}&obfs={obfs}&protocol={protocol}&fastopen={fast_open}#{name}"
+            merged_proxies.append(hysteria_meta)
+
+    # 以下代码已注释掉，仅保留hysteria/hysteria2节点
+    """
     for proxy in proxies:
         # 如果类型是vless
         if proxy["type"] == "vless":
@@ -197,17 +245,22 @@ def process_clash(data, index):
             ss_source = base64.b64encode(ss_source.encode()).decode()
             ss_meta = f"ss://{ss_source}"
             merged_proxies.append(ss_meta)
+    """
 
 
 def process_naive(data, index):
     try:
+        # 保留原始代码但注释掉处理逻辑
+        """
         json_data = json.loads(data)
 
         proxy_str = json_data["proxy"]
         # proxy_str = proxy_str.replace("https://", "")
         naiveproxy = base64.b64encode(proxy_str.encode()).decode()
         merged_proxies.append(naiveproxy)
-
+        """
+        # 不处理naive节点
+        pass
     except Exception as e:
         logging.error(f"Error processing naive data for index {index}: {e}")
 
@@ -215,6 +268,8 @@ def process_naive(data, index):
 # 处理sing-box节点，待办
 def process_sb(data, index):
     try:
+        # 保留原始代码但注释掉处理逻辑
+        """
         json_data = json.loads(data)
         # 处理 shadowtls 数据
         server = json_data["outbounds"][1].get("server", "")
@@ -236,7 +291,9 @@ def process_sb(data, index):
         )
 
         merged_proxies.append(shadowtls_proxy)
-
+        """
+        # 不处理sing-box节点
+        pass
     except Exception as e:
         logging.error(f"Error processing shadowtls data for index {index}: {e}")
 
@@ -290,6 +347,8 @@ def process_hysteria2(data, index):
 # 处理xray
 def process_xray(data, index):
     try:
+        # 保留原始代码但注释掉处理逻辑
+        """
         json_data = json.loads(data)
         # 处理 xray 数据
         protocol = json_data["outbounds"][0].get("protocol")
@@ -349,21 +408,44 @@ def process_xray(data, index):
 
             # 将当前proxy字典添加到所有proxies列表中
             merged_proxies.append(xray_proxy)
+        """
+        # 不处理xray节点
+        pass
     except Exception as e:
         logging.error(f"Error processing xray data for index {index}: {e}")
+
+
+# 去重函数：移除除名称外所有属性相同的节点
+def remove_duplicate_proxies(proxies):
+    # 创建签名字典，键为属性元组，值为节点对象
+    signature_map = OrderedDict()
+    
+    for proxy in proxies:
+        # 提取配置部分（去掉名称）
+        if '#' in proxy:
+            config_part = proxy.split('#', 1)[0]
+        else:
+            config_part = proxy
+        
+        # 使用配置部分作为签名
+        if config_part not in signature_map:
+            signature_map[config_part] = proxy
+    
+    # 返回去重后的节点列表（保留第一个出现的节点）
+    return list(signature_map.values())
 
 
 # 定义一个空列表用于存储合并后的代理配置
 merged_proxies = []
 
-# 处理 clash URLs
-# process_urls("./urls/clash_urls.txt", process_clash)
+# 处理 clash URLs - 只处理hysteria/hysteria2
+process_urls("./urls/clash_urls.txt", process_clash)
 
-# 处理 shadowtls URLs
+# 处理 shadowtls URLs - 跳过
 # process_urls('./urls/sb_urls.txt', process_sb)
 
-# 处理 naive URLs
-process_urls("./urls/naiverproxy_urls.txt", process_naive)
+# 处理 naive URLs - 跳过
+# process_urls("./urls/naiverproxy_urls.txt", process_naive)
 
 # 处理 hysteria URLs
 process_urls("./urls/hysteria_urls.txt", process_hysteria)
@@ -371,8 +453,11 @@ process_urls("./urls/hysteria_urls.txt", process_hysteria)
 # 处理 hysteria2 URLs
 process_urls("./urls/hysteria2_urls.txt", process_hysteria2)
 
-# 处理 xray URLs
+# 处理 xray URLs - 跳过
 # process_urls("./urls/xray_urls.txt", process_xray)
+
+# 去重处理：移除除名称外所有属性相同的节点
+merged_proxies = remove_duplicate_proxies(merged_proxies)
 
 # 将结果写入文件
 merged_content = "\n".join(merged_proxies)
@@ -383,6 +468,6 @@ try:
     with open("./sub/base64.txt", "w") as encoded_file:
         encoded_file.write(encoded_content)
 
-    print("Content successfully encoded and written to base64.txt.")
+    print(f"聚合完成，保留 {len(merged_proxies)} 个hysteria/hysteria2节点（已去重）")
 except Exception as e:
     print(f"Error encoding and writing to file: {e}")
