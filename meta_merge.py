@@ -5,7 +5,7 @@ import logging
 import geoip2.database
 import socket
 import re
-
+from collections import OrderedDict
 
 # 提取节点
 def process_urls(url_file, processor):
@@ -57,6 +57,9 @@ def get_physical_location(address):
         return f"{country}_{city}"
     except geoip2.errors.AddressNotFoundError as e:
         print(f"Error: {e}")
+        return "Unknown"
+    except Exception as e:
+        logging.error(f"Error getting location for {address}: {e}")
         return "Unknown"
 
 
@@ -166,6 +169,27 @@ def update_proxy_groups(config_data, merged_proxies):
         if not (x in seen or seen.add(x))
     ]
 
+# 去重函数：移除除名称外所有属性相同的节点
+def remove_duplicate_proxies(proxies):
+    # 创建签名字典，键为属性元组，值为节点对象
+    signature_map = OrderedDict()
+    
+    for proxy in proxies:
+        # 创建属性的签名元组（排除名称字段）
+        signature = tuple(sorted([
+            (k, tuple(v) if isinstance(v, list) else v)  # 处理列表类型
+            for k, v in proxy.items() 
+            if k != "name"  # 排除名称字段
+        ]))
+        
+        # 如果签名不存在，添加节点到结果
+        if signature not in signature_map:
+            signature_map[signature] = proxy
+    
+    # 返回去重后的节点列表（保留第一个出现的节点）
+    return list(signature_map.values())
+
+
 merged_proxies = []
 
 # 处理 clash URLs（已添加类型过滤）
@@ -176,6 +200,9 @@ process_urls("./urls/hysteria_urls.txt", process_hysteria)
 
 # 处理 hysteria2 URLs
 process_urls("./urls/hysteria2_urls.txt", process_hysteria2)
+
+# 去重处理：移除除名称外所有属性相同的节点
+merged_proxies = remove_duplicate_proxies(merged_proxies)
 
 # 读取模板
 with open("./templates/clash_template.yaml", "r", encoding="utf-8") as file:
@@ -191,4 +218,4 @@ update_proxy_groups(config_data, merged_proxies)
 with open("./sub/merged_proxies_new.yaml", "w", encoding="utf-8") as file:
     yaml.dump(config_data, file, sort_keys=False, allow_unicode=True)
 
-print("聚合完成，仅保留hysteria和hysteria2节点")
+print(f"聚合完成，保留 {len(merged_proxies)} 个hysteria/hysteria2节点（已去重）")
