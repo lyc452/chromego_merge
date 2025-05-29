@@ -74,6 +74,22 @@ proxies:
   - h3
 - name: Russia_Moscow_hy2_0
   type: hysteria2
+  server: 45.129.2.108
+  port: 30033
+  password: dongtaiwang.com
+  fast-open: true
+  sni: www.bing.com
+  skip-cert-verify: true
+- name: Russia_Moscow_hy2_1
+  type: hysteria2
+  server: 46.17.41.217
+  port: 30033
+  password: dongtaiwang.com
+  fast-open: true
+  sni: www.bing.com
+  skip-cert-verify: true
+- name: Russia_Moscow_hy2_2
+  type: hysteria2
   server: hy2.694463.xyz
   port: 30033
   password: dongtaiwang.com
@@ -85,10 +101,12 @@ proxy-groups:
   type: select
   proxies:
   - 自动选择
-  - Russia_Moscow_hy2_0
-  - United States_Los Angeles_hysteria_71
-  - United States_None_hysteria_61
   - Russia_None_hysteria_81
+  - United States_None_hysteria_61
+  - United States_Los Angeles_hysteria_71
+  - Russia_Moscow_hy2_0
+  - Russia_Moscow_hy2_1
+  - Russia_Moscow_hy2_2
   - Russia_None_hy_0
 - name: 自动选择
   type: url-test
@@ -101,6 +119,8 @@ proxy-groups:
   - Russia_None_hysteria_81
   - Russia_None_hy_0
   - Russia_Moscow_hy2_0
+  - Russia_Moscow_hy2_1
+  - Russia_Moscow_hy2_2
 rules:
 - DOMAIN,clash.razord.top,DIRECT
 - DOMAIN,yacd.haishan.me,DIRECT
