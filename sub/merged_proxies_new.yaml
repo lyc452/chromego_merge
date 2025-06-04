@@ -101,12 +101,12 @@ proxy-groups:
   type: select
   proxies:
   - 自动选择
+  - United States_Los Angeles_hysteria_71
+  - Russia_Moscow_hy2_0
+  - Russia_None_hy_0
+  - United States_None_hysteria_61
   - Russia_Moscow_hy2_2
   - Russia_Moscow_hy2_1
-  - Russia_Moscow_hy2_0
-  - United States_None_hysteria_61
-  - United States_Los Angeles_hysteria_71
-  - Russia_None_hy_0
   - Russia_None_hysteria_81
 - name: 自动选择
   type: url-test
