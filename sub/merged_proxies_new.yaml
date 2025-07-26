@@ -59,10 +59,10 @@ proxies:
   skip-cert-verify: true
   up: 11 Mbps
   down: 55 Mbps
-- name: United States_Dallas_hy_0
+- name: The Netherlands_Amsterdam_hy_0
   type: hysteria
-  server: 172.245.235.201
-  port: 38814
+  server: 109.104.153.91
+  port: 37519
   auth_str: dongtaiwang.com
   up: 1000
   down: 1000
@@ -72,10 +72,10 @@ proxies:
   skip-cert-verify: true
   alpn:
   - h3
-- name: France_Paris_hy2_0
+- name: United States_Los Angeles_hy2_0
   type: hysteria2
-  server: 64.31.63.57
-  port: 44462
+  server: 104.168.10.176
+  port: 35205
   password: dongtaiwang.com
   fast-open: true
   sni: apple.com
@@ -85,11 +85,11 @@ proxy-groups:
   type: select
   proxies:
   - 自动选择
-  - United States_Dallas_hysteria_81
+  - The Netherlands_Amsterdam_hy_0
   - United States_None_hysteria_61
-  - United States_Dallas_hy_0
-  - France_Paris_hy2_0
+  - United States_Los Angeles_hy2_0
   - United States_Los Angeles_hysteria_71
+  - United States_Dallas_hysteria_81
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
@@ -99,8 +99,8 @@ proxy-groups:
   - United States_None_hysteria_61
   - United States_Los Angeles_hysteria_71
   - United States_Dallas_hysteria_81
-  - United States_Dallas_hy_0
-  - France_Paris_hy2_0
+  - The Netherlands_Amsterdam_hy_0
+  - United States_Los Angeles_hy2_0
 rules:
 - DOMAIN,clash.razord.top,DIRECT
 - DOMAIN,yacd.haishan.me,DIRECT
