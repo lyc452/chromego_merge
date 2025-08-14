@@ -87,8 +87,8 @@ proxy-groups:
   proxies:
   - 自动选择
   - The Netherlands_Amsterdam_hy_0
-  - United States_None_hysteria_61
   - United States_Los Angeles_hy2_0
+  - United States_None_hysteria_61
   - The Netherlands_Amsterdam_hysteria_81
   - United States_Los Angeles_hysteria_71
 - name: 自动选择
