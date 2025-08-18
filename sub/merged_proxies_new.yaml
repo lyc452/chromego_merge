@@ -86,11 +86,11 @@ proxy-groups:
   type: select
   proxies:
   - 自动选择
-  - United States_None_hysteria_61
-  - The Netherlands_Amsterdam_hy_0
-  - The Netherlands_Amsterdam_hysteria_81
-  - United States_Los Angeles_hy2_0
   - United States_Los Angeles_hysteria_71
+  - United States_None_hysteria_61
+  - The Netherlands_Amsterdam_hysteria_81
+  - The Netherlands_Amsterdam_hy_0
+  - United States_Los Angeles_hy2_0
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
