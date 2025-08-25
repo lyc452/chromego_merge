@@ -28,7 +28,19 @@ proxies:
 - name: Unknown_hysteria2_01
   type: hysteria2
   server: 2001:bc8:32d7:302::11
-  port: 33563
+  port: 20088
+  password: dongtaiwang.com
+  sni: apple.com
+  skip-cert-verify: true
+  alpn:
+  - h3
+  protocol: udp
+  up: 11 Mbps
+  down: 55 Mbps
+- name: Unknown_hysteria2_31
+  type: hysteria2
+  server: 2001:bc8:32d7:302::17
+  port: 20088
   password: dongtaiwang.com
   sni: apple.com
   skip-cert-verify: true
@@ -109,13 +121,14 @@ proxy-groups:
   type: select
   proxies:
   - 自动选择
-  - The Netherlands_Amsterdam_hy_0
+  - Unknown_hysteria2_01
   - United States_Los Angeles_hysteria_71
+  - Unknown_hysteria2_31
   - United States_Los Angeles_hy2_0
+  - The Netherlands_Amsterdam_hy_0
+  - Unknown_hysteria_61
   - United States_None_hysteria_91
   - The Netherlands_Amsterdam_hysteria_81
-  - Unknown_hysteria2_01
-  - Unknown_hysteria_61
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
@@ -123,6 +136,7 @@ proxy-groups:
   tolerance: 50
   proxies:
   - Unknown_hysteria2_01
+  - Unknown_hysteria2_31
   - Unknown_hysteria_61
   - United States_Los Angeles_hysteria_71
   - The Netherlands_Amsterdam_hysteria_81
