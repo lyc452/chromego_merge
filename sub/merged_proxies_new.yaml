@@ -121,11 +121,11 @@ proxy-groups:
   type: select
   proxies:
   - 自动选择
-  - United States_Los Angeles_hysteria_71
-  - Unknown_hysteria2_31
   - Unknown_hysteria_61
-  - Unknown_hysteria2_01
   - The Netherlands_Amsterdam_hy_0
+  - Unknown_hysteria2_31
+  - United States_Los Angeles_hysteria_71
+  - Unknown_hysteria2_01
   - The Netherlands_Amsterdam_hysteria_81
   - United States_None_hysteria_91
   - United States_Los Angeles_hy2_0
