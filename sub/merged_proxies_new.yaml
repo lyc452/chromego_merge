@@ -121,14 +121,14 @@ proxy-groups:
   type: select
   proxies:
   - 自动选择
-  - United States_None_hysteria_91
-  - Unknown_hysteria2_01
-  - United States_Los Angeles_hy2_0
+  - Unknown_hysteria_61
   - The Netherlands_Amsterdam_hysteria_81
+  - United States_None_hysteria_91
+  - The Netherlands_Amsterdam_hy_0
+  - United States_Los Angeles_hy2_0
   - United States_Los Angeles_hysteria_71
   - Unknown_hysteria2_31
-  - The Netherlands_Amsterdam_hy_0
-  - Unknown_hysteria_61
+  - Unknown_hysteria2_01
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
