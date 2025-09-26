@@ -86,25 +86,16 @@ proxies:
   skip-cert-verify: true
   alpn:
   - h3
-- name: United States_Los Angeles_hy2_0
-  type: hysteria2
-  server: 104.168.10.176
-  port: 35205
-  password: dongtaiwang.com
-  fast-open: true
-  sni: apple.com
-  skip-cert-verify: true
 proxy-groups:
 - name: 节点选择
   type: select
   proxies:
   - 自动选择
-  - United States_Los Angeles_hy2_0
-  - Unknown_hysteria2_01
   - France_Paris_hysteria_71
-  - Unknown_hysteria2_31
+  - Unknown_hysteria2_01
   - The Netherlands_Amsterdam_hy_0
   - Unknown_hysteria_61
+  - Unknown_hysteria2_31
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
@@ -116,7 +107,6 @@ proxy-groups:
   - Unknown_hysteria_61
   - France_Paris_hysteria_71
   - The Netherlands_Amsterdam_hy_0
-  - United States_Los Angeles_hy2_0
 rules:
 - DOMAIN,clash.razord.top,DIRECT
 - DOMAIN,yacd.haishan.me,DIRECT
