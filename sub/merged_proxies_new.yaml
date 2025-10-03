@@ -91,9 +91,9 @@ proxy-groups:
   type: select
   proxies:
   - 自动选择
-  - France_Paris_hysteria_71
   - The Netherlands_Amsterdam_hy_0
   - Unknown_hysteria2_31
+  - France_Paris_hysteria_71
   - Unknown_hysteria_61
   - Unknown_hysteria2_01
 - name: 自动选择
