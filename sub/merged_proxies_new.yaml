@@ -91,10 +91,10 @@ proxy-groups:
   type: select
   proxies:
   - 自动选择
-  - Unknown_hysteria2_31
   - Unknown_hysteria_61
-  - The Netherlands_Amsterdam_hy_0
+  - Unknown_hysteria2_31
   - Unknown_hysteria2_01
+  - The Netherlands_Amsterdam_hy_0
   - France_Paris_hysteria_71
 - name: 自动选择
   type: url-test
