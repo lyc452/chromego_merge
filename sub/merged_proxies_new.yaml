@@ -91,11 +91,11 @@ proxy-groups:
   type: select
   proxies:
   - 自动选择
-  - The Netherlands_Amsterdam_hy_0
-  - Unknown_hysteria_61
   - Unknown_hysteria2_31
   - Unknown_hysteria2_01
+  - Unknown_hysteria_61
   - France_Paris_hysteria_71
+  - The Netherlands_Amsterdam_hy_0
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
