@@ -61,9 +61,21 @@ proxies:
   protocol: udp
   up: 11 Mbps
   down: 55 Mbps
-- name: France_Paris_hysteria_71
+- name: France_None_hysteria_71
   type: hysteria
-  server: 62.210.127.217
+  server: 62.210.10.186
+  port: 50011
+  auth-str: dongtaiwang.com
+  sni: apple.com
+  skip-cert-verify: true
+  alpn:
+  - h3
+  protocol: udp
+  up: 11 Mbps
+  down: 55 Mbps
+- name: Unknown_hysteria_81
+  type: hysteria
+  server: 2001:bc8:32d7:158::2
   port: 50011
   auth-str: dongtaiwang.com
   sni: apple.com
@@ -75,8 +87,8 @@ proxies:
   down: 55 Mbps
 - name: The Netherlands_Amsterdam_hy_0
   type: hysteria
-  server: 109.104.153.91
-  port: 37519
+  server: 109.104.154.97
+  port: 48429
   auth_str: dongtaiwang.com
   up: 1000
   down: 1000
@@ -91,11 +103,12 @@ proxy-groups:
   type: select
   proxies:
   - 自动选择
-  - France_Paris_hysteria_71
-  - Unknown_hysteria2_01
-  - Unknown_hysteria_61
   - The Netherlands_Amsterdam_hy_0
+  - France_None_hysteria_71
+  - Unknown_hysteria2_01
   - Unknown_hysteria2_31
+  - Unknown_hysteria_61
+  - Unknown_hysteria_81
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
@@ -105,7 +118,8 @@ proxy-groups:
   - Unknown_hysteria2_01
   - Unknown_hysteria2_31
   - Unknown_hysteria_61
-  - France_Paris_hysteria_71
+  - France_None_hysteria_71
+  - Unknown_hysteria_81
   - The Netherlands_Amsterdam_hy_0
 rules:
 - DOMAIN,clash.razord.top,DIRECT
