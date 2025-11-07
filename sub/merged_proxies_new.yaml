@@ -103,12 +103,12 @@ proxy-groups:
   type: select
   proxies:
   - 自动选择
-  - Unknown_hysteria2_01
-  - Unknown_hysteria_81
-  - Unknown_hysteria_61
   - France_None_hysteria_71
+  - Unknown_hysteria_81
   - Unknown_hysteria2_31
+  - Unknown_hysteria2_01
   - The Netherlands_Amsterdam_hy_0
+  - Unknown_hysteria_61
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
