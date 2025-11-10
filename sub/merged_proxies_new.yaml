@@ -85,10 +85,10 @@ proxies:
   protocol: udp
   up: 11 Mbps
   down: 55 Mbps
-- name: The Netherlands_Amsterdam_hy_0
+- name: Unknown_hy_0
   type: hysteria
-  server: 109.104.154.97
-  port: 48429
+  server: '[2604'
+  port: 6600
   auth_str: dongtaiwang.com
   up: 1000
   down: 1000
@@ -103,12 +103,12 @@ proxy-groups:
   type: select
   proxies:
   - 自动选择
-  - The Netherlands_Amsterdam_hy_0
-  - Unknown_hysteria_81
-  - Unknown_hysteria_61
-  - France_None_hysteria_71
   - Unknown_hysteria2_31
   - Unknown_hysteria2_01
+  - France_None_hysteria_71
+  - Unknown_hy_0
+  - Unknown_hysteria_61
+  - Unknown_hysteria_81
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
@@ -120,7 +120,7 @@ proxy-groups:
   - Unknown_hysteria_61
   - France_None_hysteria_71
   - Unknown_hysteria_81
-  - The Netherlands_Amsterdam_hy_0
+  - Unknown_hy_0
 rules:
 - DOMAIN,clash.razord.top,DIRECT
 - DOMAIN,yacd.haishan.me,DIRECT
