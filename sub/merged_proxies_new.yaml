@@ -103,11 +103,11 @@ proxy-groups:
   type: select
   proxies:
   - 自动选择
-  - Unknown_hysteria_61
-  - France_None_hysteria_71
   - Unknown_hysteria2_01
-  - Unknown_hysteria2_31
+  - France_None_hysteria_71
   - Unknown_hysteria_81
+  - Unknown_hysteria2_31
+  - Unknown_hysteria_61
   - Unknown_hy_0
 - name: 自动选择
   type: url-test
