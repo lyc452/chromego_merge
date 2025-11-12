@@ -105,9 +105,9 @@ proxy-groups:
   - 自动选择
   - Unknown_hysteria_61
   - Unknown_hysteria_81
-  - France_None_hysteria_71
   - Unknown_hysteria2_31
   - Unknown_hy_0
+  - France_None_hysteria_71
   - Unknown_hysteria2_01
 - name: 自动选择
   type: url-test
