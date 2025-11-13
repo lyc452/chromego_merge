@@ -25,7 +25,7 @@ dns:
     ipcidr:
     - 240.0.0.0/4
 proxies:
-- name: Unknown_hysteria2_01
+- name: France_Paris_hysteria2_01
   type: hysteria2
   server: 2001:bc8:32d7:302::11
   port: 20088
@@ -37,7 +37,7 @@ proxies:
   protocol: udp
   up: 11 Mbps
   down: 55 Mbps
-- name: Unknown_hysteria2_31
+- name: France_Paris_hysteria2_31
   type: hysteria2
   server: 2001:bc8:32d7:302::17
   port: 20088
@@ -49,7 +49,7 @@ proxies:
   protocol: udp
   up: 11 Mbps
   down: 55 Mbps
-- name: Unknown_hysteria_61
+- name: France_Paris_hysteria_61
   type: hysteria
   server: 2001:bc8:32d7:158::4
   port: 50011
@@ -73,7 +73,7 @@ proxies:
   protocol: udp
   up: 11 Mbps
   down: 55 Mbps
-- name: Unknown_hysteria_81
+- name: France_Paris_hysteria_81
   type: hysteria
   server: 2001:bc8:32d7:158::2
   port: 50011
@@ -85,9 +85,9 @@ proxies:
   protocol: udp
   up: 11 Mbps
   down: 55 Mbps
-- name: Unknown_hy_0
+- name: United States_Unknown_hy_0
   type: hysteria
-  server: '[2604:6600::5cb]'
+  server: 2604:6600::5cb
   port: 15823
   auth_str: dongtaiwang.com
   up: 1000
@@ -98,9 +98,9 @@ proxies:
   skip-cert-verify: true
   alpn:
   - h3
-- name: Unknown_hy2_0
+- name: France_Paris_hy2_0
   type: hysteria2
-  server: '[2001:bc8:32d7:302::11]'
+  server: 2001:bc8:32d7:302::11
   port: 20088
   password: dongtaiwang.com
   fast-open: true
@@ -111,26 +111,26 @@ proxy-groups:
   type: select
   proxies:
   - 自动选择
+  - France_Paris_hysteria2_01
+  - France_Paris_hysteria_61
   - France_Paris_hysteria_71
-  - Unknown_hysteria_61
-  - Unknown_hysteria_81
-  - Unknown_hysteria2_31
-  - Unknown_hysteria2_01
-  - Unknown_hy2_0
-  - Unknown_hy_0
+  - France_Paris_hysteria2_31
+  - United States_Unknown_hy_0
+  - France_Paris_hysteria_81
+  - France_Paris_hy2_0
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
   interval: 300
   tolerance: 50
   proxies:
-  - Unknown_hysteria2_01
-  - Unknown_hysteria2_31
-  - Unknown_hysteria_61
+  - France_Paris_hysteria2_01
+  - France_Paris_hysteria2_31
+  - France_Paris_hysteria_61
   - France_Paris_hysteria_71
-  - Unknown_hysteria_81
-  - Unknown_hy_0
-  - Unknown_hy2_0
+  - France_Paris_hysteria_81
+  - United States_Unknown_hy_0
+  - France_Paris_hy2_0
 rules:
 - DOMAIN,clash.razord.top,DIRECT
 - DOMAIN,yacd.haishan.me,DIRECT
