@@ -27,7 +27,7 @@ def process_urls(url_file, processor):
 
 
 def get_physical_location(address):
-    address = re.sub(":.*", "", address)  # 用正则表达式去除端口部分
+    address = re.sub(r':\d+$', '', address)
     try:
         ip_address = socket.gethostbyname(address)
     except socket.gaierror:
@@ -36,11 +36,9 @@ def get_physical_location(address):
     try:
         reader = geoip2.database.Reader(
             "GeoLite2-City.mmdb"
-        )  # 这里的路径需要指向你自己的数据库文件
+        )
         response = reader.city(ip_address)
         country = response.country.name
-        city = response.city.name
-        # return f"{country}_{city}"
         return f"{country}"
     except geoip2.errors.AddressNotFoundError as e:
         print(f"Error: {e}")
@@ -102,9 +100,9 @@ def process_clash(data, index):
             merged_proxies.append(hysteria_meta)
 
     # 以下代码已注释掉，仅保留hysteria/hysteria2节点
-    """
+
     for proxy in proxies:
-        # 如果类型是vless
+        """
         if proxy["type"] == "vless":
             server = proxy.get("server", "")
             port = int(proxy.get("port", 443))
@@ -179,8 +177,8 @@ def process_clash(data, index):
             # tuic_meta_neko = f"tuic://{server}:{port}?uuid={uuid}&version=5&password={password}&insecure={insecure}&alpn={alpn}&mode={udp_relay_mode}"
             tuic_meta = f"tuic://{uuid}:{password}@{server}:{port}?sni={sni}&congestion_control={congestion}&udp_relay_mode={udp_relay_mode}&alpn={alpn}&allow_insecure={insecure}#{name}"
             merged_proxies.append(tuic_meta)
-
-        elif proxy["type"] == "hysteria2":
+        """
+        if proxy["type"] == "hysteria2":
             server = proxy.get("server", "")
             port = int(proxy.get("port", 443))
             auth = proxy.get("password", "")
@@ -215,7 +213,7 @@ def process_clash(data, index):
             name = f"{location}_hy_{index}"
             hysteria_meta = f"hysteria://{server}:{port}?peer={sni}&auth={auth}&insecure={insecure}&upmbps={up_mbps}&downmbps={down_mbps}&alpn={alpn}&mport={ports}&obfs={obfs}&protocol={protocol}&fastopen={fast_open}#{name}"
             merged_proxies.append(hysteria_meta)
-
+        """
         elif proxy["type"] == "ssr":
             server = proxy.get("server", "")
             port = int(proxy.get("port", 443))
@@ -233,6 +231,7 @@ def process_clash(data, index):
             ssr_source = base64.b64encode(ssr_source.encode()).decode()
             ssr_meta = f"ssr://{ssr_source}"
             merged_proxies.append(ssr_meta)
+
         # 目前仅支持最原始版本ss，无插件支持
         elif proxy["type"] == "sstest":
             server = proxy.get("server", "")
@@ -245,7 +244,7 @@ def process_clash(data, index):
             ss_source = base64.b64encode(ss_source.encode()).decode()
             ss_meta = f"ss://{ss_source}"
             merged_proxies.append(ss_meta)
-    """
+        """
 
 
 def process_naive(data, index):
@@ -302,9 +301,15 @@ def process_sb(data, index):
 def process_hysteria(data, index):
     try:
         json_data = json.loads(data)
-        # 处理 hysteria 数据
-        # 提取字段值
-        server = json_data.get("server", "")
+        server_full = json_data.get("server", "")
+        match = re.match(r'^(.*):(\d+)$', server_full)
+        if match:
+            server = match.group(1)
+            port = match.group(2)
+        else:
+            server = server_full
+            port = 443
+
         protocol = json_data.get("protocol", "")
         up_mbps = json_data.get("up_mbps", "")
         down_mbps = json_data.get("down_mbps", "")
@@ -314,10 +319,10 @@ def process_hysteria(data, index):
         server_name = json_data.get("server_name", "")
         fast_open = int(json_data.get("fast_open", 0))
         auth = json_data.get("auth_str", "")
-        # 生成URL
+        
         location = get_physical_location(server)
         name = f"{location}_hysteria_{index}"
-        hysteria = f"hysteria://{server}?peer={server_name}&auth={auth}&insecure={insecure}&upmbps={up_mbps}&downmbps={down_mbps}&alpn={alpn}&obfs={obfs}&protocol={protocol}&fastopen={fast_open}#{name}"
+        hysteria = f"hysteria://{server}:{port}?peer={server_name}&auth={auth}&insecure={insecure}&upmbps={up_mbps}&downmbps={down_mbps}&alpn={alpn}&obfs={obfs}&protocol={protocol}&fastopen={fast_open}#{name}"
         merged_proxies.append(hysteria)
 
     except Exception as e:
