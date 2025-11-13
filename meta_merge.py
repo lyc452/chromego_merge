@@ -68,11 +68,11 @@ def process_hysteria(data, index):
     try:
         json_data = json.loads(data)
         server_ports = json_data["server"]
-        server_ports_slt = server_ports.split(":")
-        server = server_ports_slt[0]
-        ports = server_ports_slt[1]
-        ports_slt = ports.split(",")
+        server_part, port_part = server_ports.rsplit(":", 1)
+        server = server_part
+        ports_slt = port_part.split(",")
         server_port = int(ports_slt[0])
+        
         location = get_physical_location(server)
         name = f"{location}_hy_{index}"
 
@@ -100,11 +100,11 @@ def process_hysteria2(data, index):
     try:
         json_data = json.loads(data)
         server_ports = json_data["server"]
-        server_ports_slt = server_ports.split(":")
-        server = server_ports_slt[0]
-        ports = server_ports_slt[1]
-        ports_slt = ports.split(",")
+        server_part, port_part = server_ports.rsplit(":", 1)
+        server = server_part
+        ports_slt = port_part.split(",")
         server_port = int(ports_slt[0])
+        
         location = get_physical_location(server)
         name = f"{location}_hy2_{index}"
 
