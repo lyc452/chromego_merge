@@ -87,8 +87,8 @@ proxies:
   down: 55 Mbps
 - name: Unknown_hy_0
   type: hysteria
-  server: '[2604'
-  port: 6600
+  server: '[2604:6600::5cb]'
+  port: 15823
   auth_str: dongtaiwang.com
   up: 1000
   down: 1000
@@ -98,17 +98,26 @@ proxies:
   skip-cert-verify: true
   alpn:
   - h3
+- name: Unknown_hy2_0
+  type: hysteria2
+  server: '[2001:bc8:32d7:302::11]'
+  port: 20088
+  password: dongtaiwang.com
+  fast-open: true
+  sni: apple.com
+  skip-cert-verify: true
 proxy-groups:
 - name: 节点选择
   type: select
   proxies:
   - 自动选择
-  - Unknown_hysteria2_01
-  - Unknown_hysteria_61
   - France_Paris_hysteria_71
+  - Unknown_hysteria_61
   - Unknown_hysteria_81
-  - Unknown_hy_0
   - Unknown_hysteria2_31
+  - Unknown_hysteria2_01
+  - Unknown_hy2_0
+  - Unknown_hy_0
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
@@ -121,6 +130,7 @@ proxy-groups:
   - France_Paris_hysteria_71
   - Unknown_hysteria_81
   - Unknown_hy_0
+  - Unknown_hy2_0
 rules:
 - DOMAIN,clash.razord.top,DIRECT
 - DOMAIN,yacd.haishan.me,DIRECT
