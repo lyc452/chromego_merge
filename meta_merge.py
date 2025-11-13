@@ -43,7 +43,7 @@ def process_clash(data, index):
 
 
 def get_physical_location(address):
-    address = re.sub(":.*", "", address)
+    address = address.strip('[]')
     try:
         ip_address = socket.gethostbyname(address)
     except socket.gaierror:
@@ -52,11 +52,10 @@ def get_physical_location(address):
     try:
         reader = geoip2.database.Reader("GeoLite2-City.mmdb")
         response = reader.city(ip_address)
-        country = response.country.name
-        city = response.city.name
+        country = response.country.name or "Unknown"
+        city = response.city.name or "Unknown"
         return f"{country}_{city}"
-    except geoip2.errors.AddressNotFoundError as e:
-        print(f"Error: {e}")
+    except geoip2.errors.AddressNotFoundError:
         return "Unknown"
     except Exception as e:
         logging.error(f"Error getting location for {address}: {e}")
@@ -69,7 +68,7 @@ def process_hysteria(data, index):
         json_data = json.loads(data)
         server_ports = json_data["server"]
         server_part, port_part = server_ports.rsplit(":", 1)
-        server = server_part
+        server = server_part.strip('[]')
         ports_slt = port_part.split(",")
         server_port = int(ports_slt[0])
         
@@ -101,7 +100,7 @@ def process_hysteria2(data, index):
         json_data = json.loads(data)
         server_ports = json_data["server"]
         server_part, port_part = server_ports.rsplit(":", 1)
-        server = server_part
+        server = server_part.strip('[]')
         ports_slt = port_part.split(",")
         server_port = int(ports_slt[0])
         
