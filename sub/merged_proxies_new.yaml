@@ -25,23 +25,11 @@ dns:
     ipcidr:
     - 240.0.0.0/4
 proxies:
-- name: France_Paris_hysteria2_01
-  type: hysteria2
-  server: 2001:bc8:32d7:302::11
-  port: 20088
-  password: dongtaiwang.com
-  sni: apple.com
-  skip-cert-verify: true
-  alpn:
-  - h3
-  protocol: udp
-  up: 11 Mbps
-  down: 55 Mbps
-- name: France_Paris_hysteria2_31
-  type: hysteria2
-  server: 2001:bc8:32d7:302::17
-  port: 20088
-  password: dongtaiwang.com
+- name: France_Paris_hysteria_01
+  type: hysteria
+  server: 2001:bc8:32d7:17b::2
+  port: 11000
+  auth-str: dongtaiwang.com
   sni: apple.com
   skip-cert-verify: true
   alpn:
@@ -100,6 +88,14 @@ proxies:
   - h3
 - name: France_Paris_hy2_0
   type: hysteria2
+  server: 2001:bc8:32d7:17b::8
+  port: 22000
+  password: dongtaiwang.com
+  fast-open: true
+  sni: apple.com
+  skip-cert-verify: true
+- name: France_Paris_hy2_2
+  type: hysteria2
   server: 2001:bc8:32d7:302::11
   port: 20088
   password: dongtaiwang.com
@@ -111,26 +107,26 @@ proxy-groups:
   type: select
   proxies:
   - 自动选择
-  - France_Paris_hysteria2_01
-  - France_Paris_hy2_0
-  - France_Paris_hysteria_61
-  - France_Paris_hysteria_81
-  - United States_Unknown_hy_0
-  - France_Paris_hysteria2_31
   - France_Paris_hysteria_71
+  - France_Paris_hy2_0
+  - France_Paris_hysteria_81
+  - France_Paris_hysteria_01
+  - United States_Unknown_hy_0
+  - France_Paris_hy2_2
+  - France_Paris_hysteria_61
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
   interval: 300
   tolerance: 50
   proxies:
-  - France_Paris_hysteria2_01
-  - France_Paris_hysteria2_31
+  - France_Paris_hysteria_01
   - France_Paris_hysteria_61
   - France_Paris_hysteria_71
   - France_Paris_hysteria_81
   - United States_Unknown_hy_0
   - France_Paris_hy2_0
+  - France_Paris_hy2_2
 rules:
 - DOMAIN,clash.razord.top,DIRECT
 - DOMAIN,yacd.haishan.me,DIRECT
