@@ -107,12 +107,12 @@ proxy-groups:
   type: select
   proxies:
   - 自动选择
-  - United States_Unknown_hy_0
-  - France_Paris_hysteria_71
-  - France_Paris_hy2_0
-  - France_Paris_hy2_2
-  - France_Paris_hysteria_81
   - France_Paris_hysteria_01
+  - France_Paris_hysteria_81
+  - France_Paris_hy2_0
+  - France_Paris_hysteria_71
+  - United States_Unknown_hy_0
+  - France_Paris_hy2_2
   - France_Paris_hysteria_61
 - name: 自动选择
   type: url-test
