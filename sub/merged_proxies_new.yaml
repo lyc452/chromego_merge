@@ -108,11 +108,11 @@ proxy-groups:
   proxies:
   - 自动选择
   - France_Paris_hy2_0
-  - France_Paris_hysteria_81
-  - France_Paris_hysteria_61
-  - France_Paris_hysteria_01
-  - France_Paris_hy2_2
   - United States_Unknown_hy_0
+  - France_Paris_hy2_2
+  - France_Paris_hysteria_81
+  - France_Paris_hysteria_01
+  - France_Paris_hysteria_61
   - France_Paris_hysteria_71
 - name: 自动选择
   type: url-test
