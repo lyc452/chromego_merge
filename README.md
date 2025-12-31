@@ -47,7 +47,7 @@ https://github.com/lyc452/chromego_merge/raw/main/sub/base64.txt
 
 ## 致谢
 
-- [Alvin9999](https://github.com/Alvin9999/pac2/tree/master)
+- [Alvin9999-newpac（原Alvin9999）](https://github.com/Alvin9999-newpac)
 - [sing-box-subscribe](https://github.com/Toperlock/sing-box-subscribe)
 
 区域设置代码截取自:
