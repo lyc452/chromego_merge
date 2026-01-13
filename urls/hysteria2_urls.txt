@@ -1,1 +1,5 @@
 https://raw.githubusercontent.com/lyc452/pac2/master/hysteria2/config.json
+https://raw.githubusercontent.com/lyc452/pac2/master/hysteria2/1/config.json
+https://raw.githubusercontent.com/lyc452/pac2/master/hysteria2/2/config.json
+https://raw.githubusercontent.com/lyc452/pac2/master/hysteria2/3/config.json
+https://raw.githubusercontent.com/lyc452/pac2/master/hysteria2/4/config.json
