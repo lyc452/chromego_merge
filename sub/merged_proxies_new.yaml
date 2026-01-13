@@ -73,10 +73,59 @@ proxies:
   protocol: udp
   up: 11 Mbps
   down: 55 Mbps
+- name: France_Paris_hysteria_11
+  type: hysteria
+  server: 2001:bc8:32d7:17b::2
+  port: 11000
+  auth-str: dongtaiwang.com
+  sni: apple.com
+  skip-cert-verify: true
+  alpn:
+  - h3
+  protocol: udp
+  up: 11 Mbps
+  down: 55 Mbps
+- name: France_Paris_hysteria_71
+  type: hysteria
+  server: 62.210.196.68
+  port: 26691
+  auth-str: dongtaiwang.com
+  sni: apple.com
+  skip-cert-verify: true
+  alpn:
+  - h3
+  protocol: udp
+  up: 11 Mbps
+  down: 55 Mbps
+- name: France_Paris_hysteria_91
+  type: hysteria
+  server: 2001:bc8:32d7:902::3
+  port: 26691
+  auth-str: dongtaiwang.com
+  sni: apple.com
+  skip-cert-verify: true
+  alpn:
+  - h3
+  protocol: udp
+  up: 11 Mbps
+  down: 55 Mbps
 - name: France_Paris_hy_0
   type: hysteria
   server: 195.154.200.40
   port: 15010
+  auth_str: dongtaiwang.com
+  up: 1000
+  down: 1000
+  fast-open: true
+  protocol: udp
+  sni: apple.com
+  skip-cert-verify: true
+  alpn:
+  - h3
+- name: United States_Unknown_hy_1
+  type: hysteria
+  server: 2604:6600::5cb
+  port: 15823
   auth_str: dongtaiwang.com
   up: 1000
   down: 1000
@@ -99,12 +148,16 @@ proxy-groups:
   type: select
   proxies:
   - 自动选择
-  - France_Paris_hy2_0
-  - Germany_Unknown_hysteria_02
+  - France_Paris_hysteria_11
+  - France_Paris_hysteria_91
   - France_Paris_hy_0
-  - Germany_Unknown_hysteria_01
-  - France_Paris_hysteria_03
   - France_Paris_hysteria_04
+  - France_Paris_hysteria_03
+  - United States_Unknown_hy_1
+  - France_Paris_hy2_0
+  - France_Paris_hysteria_71
+  - Germany_Unknown_hysteria_02
+  - Germany_Unknown_hysteria_01
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
@@ -115,7 +168,11 @@ proxy-groups:
   - Germany_Unknown_hysteria_02
   - France_Paris_hysteria_03
   - France_Paris_hysteria_04
+  - France_Paris_hysteria_11
+  - France_Paris_hysteria_71
+  - France_Paris_hysteria_91
   - France_Paris_hy_0
+  - United States_Unknown_hy_1
   - France_Paris_hy2_0
 rules:
 - DOMAIN,clash.razord.top,DIRECT
