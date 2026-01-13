@@ -1,0 +1,9 @@
+https://raw.githubusercontent.com/lyc452/pac2/master/clash.meta/config.yaml
+https://raw.githubusercontent.com/lyc452/pac2/master/hysteria/config.json
+https://raw.githubusercontent.com/lyc452/pac2/master/hysteria2/config.json
+https://raw.githubusercontent.com/lyc452/pac2/master/juicity/config.json
+https://raw.githubusercontent.com/lyc452/pac2/master/mieru/config.json
+https://raw.githubusercontent.com/lyc452/pac2/master/naiveproxy/config.json
+https://raw.githubusercontent.com/lyc452/pac2/master/shadowquic/client.yaml
+https://raw.githubusercontent.com/lyc452/pac2/master/singbox/config.json
+https://raw.githubusercontent.com/lyc452/pac2/master/Xray/config.json
