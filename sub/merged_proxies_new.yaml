@@ -25,10 +25,10 @@ dns:
     ipcidr:
     - 240.0.0.0/4
 proxies:
-- name: France_Paris_hysteria_01
+- name: Germany_Unknown_hysteria_01
   type: hysteria
-  server: 2001:bc8:32d7:17b::2
-  port: 11000
+  server: 89.144.35.30
+  port: 23008
   auth-str: dongtaiwang.com
   sni: apple.com
   skip-cert-verify: true
@@ -37,10 +37,10 @@ proxies:
   protocol: udp
   up: 11 Mbps
   down: 55 Mbps
-- name: France_Paris_hysteria_61
+- name: Germany_Unknown_hysteria_02
   type: hysteria
-  server: 2001:bc8:32d7:902::3
-  port: 26691
+  server: 5.178.101.33
+  port: 23008
   auth-str: dongtaiwang.com
   sni: apple.com
   skip-cert-verify: true
@@ -49,10 +49,10 @@ proxies:
   protocol: udp
   up: 11 Mbps
   down: 55 Mbps
-- name: France_Paris_hysteria_71
+- name: France_Paris_hysteria_03
   type: hysteria
-  server: 62.210.196.68
-  port: 26691
+  server: 2001:bc8:32d7:402::3
+  port: 20001
   auth-str: dongtaiwang.com
   sni: apple.com
   skip-cert-verify: true
@@ -61,10 +61,22 @@ proxies:
   protocol: udp
   up: 11 Mbps
   down: 55 Mbps
-- name: United States_Unknown_hy_0
+- name: France_Paris_hysteria_04
   type: hysteria
-  server: 2604:6600::5cb
-  port: 15823
+  server: 2001:bc8:32d7:402::4
+  port: 20001
+  auth-str: dongtaiwang.com
+  sni: apple.com
+  skip-cert-verify: true
+  alpn:
+  - h3
+  protocol: udp
+  up: 11 Mbps
+  down: 55 Mbps
+- name: France_Paris_hy_0
+  type: hysteria
+  server: 195.154.200.40
+  port: 15010
   auth_str: dongtaiwang.com
   up: 1000
   down: 1000
@@ -76,43 +88,35 @@ proxies:
   - h3
 - name: France_Paris_hy2_0
   type: hysteria2
-  server: 2001:bc8:32d7:17b::8
-  port: 22000
+  server: 51.159.111.32
+  port: 5355
   password: dongtaiwang.com
   fast-open: true
-  sni: apple.com
-  skip-cert-verify: true
-- name: France_Paris_hy2_2
-  type: hysteria2
-  server: 2001:bc8:32d7:302::11
-  port: 20088
-  password: dongtaiwang.com
-  fast-open: true
-  sni: apple.com
+  sni: www.bing.com
   skip-cert-verify: true
 proxy-groups:
 - name: 节点选择
   type: select
   proxies:
   - 自动选择
-  - France_Paris_hysteria_61
-  - United States_Unknown_hy_0
-  - France_Paris_hysteria_71
-  - France_Paris_hy2_2
-  - France_Paris_hysteria_01
   - France_Paris_hy2_0
+  - Germany_Unknown_hysteria_02
+  - France_Paris_hy_0
+  - Germany_Unknown_hysteria_01
+  - France_Paris_hysteria_03
+  - France_Paris_hysteria_04
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
   interval: 300
   tolerance: 50
   proxies:
-  - France_Paris_hysteria_01
-  - France_Paris_hysteria_61
-  - France_Paris_hysteria_71
-  - United States_Unknown_hy_0
+  - Germany_Unknown_hysteria_01
+  - Germany_Unknown_hysteria_02
+  - France_Paris_hysteria_03
+  - France_Paris_hysteria_04
+  - France_Paris_hy_0
   - France_Paris_hy2_0
-  - France_Paris_hy2_2
 rules:
 - DOMAIN,clash.razord.top,DIRECT
 - DOMAIN,yacd.haishan.me,DIRECT
