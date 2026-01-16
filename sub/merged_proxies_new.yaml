@@ -148,16 +148,16 @@ proxy-groups:
   type: select
   proxies:
   - 自动选择
-  - France_Paris_hysteria_91
-  - Germany_Unknown_hysteria_02
   - France_Paris_hysteria_71
-  - France_Paris_hy2_0
-  - France_Paris_hysteria_04
-  - France_Paris_hysteria_03
+  - France_Paris_hysteria_91
   - Germany_Unknown_hysteria_01
-  - France_Paris_hysteria_11
+  - Germany_Unknown_hysteria_02
   - France_Paris_hy_0
+  - France_Paris_hysteria_11
   - United States_Unknown_hy_1
+  - France_Paris_hysteria_04
+  - France_Paris_hy2_0
+  - France_Paris_hysteria_03
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
