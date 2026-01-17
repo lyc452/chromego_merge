@@ -207,23 +207,41 @@ def update_proxy_groups(config_data, merged_proxies):
 
 # 去重函数：移除除名称外所有属性相同的节点
 def remove_duplicate_proxies(proxies):
-    # 创建签名字典，键为属性元组，值为节点对象
-    signature_map = OrderedDict()
+    """
+    去重代理节点：基于核心唯一标识字段生成可哈希的signature，避免重复
+    核心字段：server/port/type/auth-str(auth_str)/password/sni（覆盖hysteria/hysteria2等类型）
+    """
+    signature_map = {}
+    unique_proxies = []
     
     for proxy in proxies:
-        # 创建属性的签名元组（排除名称字段）
-        signature = tuple(sorted([
-            (k, tuple(v) if isinstance(v, list) else v)  # 处理列表类型
-            for k, v in proxy.items() 
-            if k != "name"  # 排除名称字段
-        ]))
+        # 1. 提取核心去重字段（兼容代码库中auth-str/auth_str混用、hysteria2的password等）
+        server = proxy.get("server", "")
+        port = proxy.get("port", "")
+        proxy_type = proxy.get("type", "")
+        auth = proxy.get("auth-str") or proxy.get("auth_str", "")  # 兼容两种字段名
+        password = proxy.get("password", "")  # hysteria2的密码字段
+        sni = proxy.get("sni", "")
         
-        # 如果签名不存在，添加节点到结果
+        # 2. 生成可哈希的signature（元组）
+        signature = (
+            server,
+            port,
+            proxy_type,
+            auth,
+            password,
+            sni
+        )
+        
+        # 3. 去重逻辑：signature不存在则保留
         if signature not in signature_map:
             signature_map[signature] = proxy
+            unique_proxies.append(proxy)
+        else:
+            logging.debug(f"跳过重复代理: {proxy.get('name', '未知名称')}")
     
-    # 返回去重后的节点列表（保留第一个出现的节点）
-    return list(signature_map.values())
+    logging.info(f"代理去重完成：原始{len(proxies)}个 → 去重后{len(unique_proxies)}个")
+    return unique_proxies
 
 
 merged_proxies = []
