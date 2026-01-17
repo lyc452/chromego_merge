@@ -1,5 +1,1 @@
 https://raw.githubusercontent.com/lyc452/pac2/master/Xray/config.json
-https://raw.githubusercontent.com/lyc452/pac2/master/Xray/1/config.json
-https://raw.githubusercontent.com/lyc452/pac2/master/Xray/2/config.json
-https://raw.githubusercontent.com/lyc452/pac2/master/Xray/3/config.json
-https://raw.githubusercontent.com/lyc452/pac2/master/Xray/4/config.json

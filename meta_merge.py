@@ -24,19 +24,23 @@ def process_urls(url_file, processor):
         logging.error(f"Error reading file {url_file}: {e}")
 
 
-# 提取clash节点（严格类型过滤）
+# 提取clash节点（扩展协议支持）
 def process_clash(data, index):
     content = yaml.safe_load(data)
     proxies = content.get("proxies", [])
     
     filtered_proxies = []
+    # 扩展支持的协议类型：hysteria/hysteria2/vless/vmess/tuic/ssr
+    SUPPORTED_TYPES = ["hysteria", "hysteria2", "vless", "vmess", "tuic", "ssr"]
     for proxy in proxies:
-        # 严格类型过滤：仅保留hysteria/hysteria2，且显式跳过其他类型
-        if proxy.get("type") not in ["hysteria", "hysteria2"]:
+        proxy_type = proxy.get("type")
+        if proxy_type not in SUPPORTED_TYPES:
             continue
+        
         # 处理地理位置和重命名
-        location = get_physical_location(proxy["server"])
-        proxy["name"] = f"{location}_{proxy['type']}_{index}{len(filtered_proxies)+1}"
+        server = proxy.get("server", "")
+        location = get_physical_location(server)
+        proxy["name"] = f"{location}_{proxy_type}_{index}_{len(filtered_proxies)+1}"
         filtered_proxies.append(proxy)
     
     merged_proxies.extend(filtered_proxies)  # 仅添加过滤后的代理
@@ -62,7 +66,7 @@ def get_physical_location(address):
         return "Unknown"
 
 
-# 处理hysteria
+# 处理hysteria（保留原有逻辑）
 def process_hysteria(data, index):
     try:
         json_data = json.loads(data)
@@ -94,7 +98,7 @@ def process_hysteria(data, index):
         logging.error(f"Error processing hysteria data for index {index}: {e}")
 
 
-# 处理hysteria2
+# 处理hysteria2（保留原有逻辑）
 def process_hysteria2(data, index):
     try:
         json_data = json.loads(data)
@@ -120,6 +124,39 @@ def process_hysteria2(data, index):
         merged_proxies.append(proxy)
     except Exception as e:
         logging.error(f"Error processing hysteria2 data for index {index}: {e}")
+
+# 新增：处理vless/vmess/tuic/ssr的独立解析函数（若有独立URL文件）
+def process_vless(data, index):
+    try:
+        json_data = json.loads(data)
+        server = json_data.get("server", "").strip('[]')
+        port = int(json_data.get("port", 443))
+        location = get_physical_location(server)
+        name = f"{location}_vless_{index}"
+        
+        proxy = {
+            "name": name,
+            "type": "vless",
+            "server": server,
+            "port": port,
+            "uuid": json_data.get("uuid", ""),
+            "network": json_data.get("network", "tcp"),
+            "tls": json_data.get("tls", 1),
+            "servername": json_data.get("sni", ""),
+            "skip-cert-verify": json_data.get("insecure", False),
+            "client-fingerprint": json_data.get("fp", "chrome"),
+            "reality-opts": {
+                "public-key": json_data.get("publicKey", ""),
+                "short-id": json_data.get("shortId", "")
+            },
+            "ws-opts": {
+                "path": json_data.get("ws_path", ""),
+                "headers": {"Host": json_data.get("ws_host", "")}
+            }
+        }
+        merged_proxies.append(proxy)
+    except Exception as e:
+        logging.error(f"Error processing vless data for index {index}: {e}")
 
 def update_proxy_groups(config_data, merged_proxies):
     auto_group = None
@@ -191,7 +228,7 @@ def remove_duplicate_proxies(proxies):
 
 merged_proxies = []
 
-# 处理 clash URLs（已添加类型过滤）
+# 处理 clash URLs（已扩展协议过滤）
 process_urls("./urls/clash_urls.txt", process_clash)
 
 # 处理 hysteria URLs
@@ -199,6 +236,12 @@ process_urls("./urls/hysteria_urls.txt", process_hysteria)
 
 # 处理 hysteria2 URLs
 process_urls("./urls/hysteria2_urls.txt", process_hysteria2)
+
+# 新增：若有独立的vless/vmess/tuic/ssr URL文件，补充处理
+# process_urls("./urls/vless_urls.txt", process_vless)
+# process_urls("./urls/vmess_urls.txt", process_vmess)
+# process_urls("./urls/tuic_urls.txt", process_tuic)
+# process_urls("./urls/ssr_urls.txt", process_ssr)
 
 # 去重处理：移除除名称外所有属性相同的节点
 merged_proxies = remove_duplicate_proxies(merged_proxies)
@@ -217,4 +260,4 @@ update_proxy_groups(config_data, merged_proxies)
 with open("./sub/merged_proxies_new.yaml", "w", encoding="utf-8") as file:
     yaml.dump(config_data, file, sort_keys=False, allow_unicode=True)
 
-print(f"聚合完成，保留 {len(merged_proxies)} 个hysteria/hysteria2节点（已去重）")
+print(f"聚合完成，保留 {len(merged_proxies)} 个节点（已去重）")

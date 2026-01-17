@@ -9,6 +9,9 @@ import socket
 import re
 from collections import OrderedDict
 
+# 初始化全局列表
+merged_proxies = []
+
 # 提取节点
 def process_urls(url_file, processor):
     try:
@@ -48,7 +51,7 @@ def get_physical_location(address):
         return "Unknown"
 
 
-# 提取clash节点
+# 提取clash节点（恢复所有协议）
 def process_clash(data, index):
     # 解析YAML格式的内容
     content = yaml.safe_load(data)
@@ -56,12 +59,8 @@ def process_clash(data, index):
     # 提取proxies部分并合并到merged_proxies中
     proxies = content.get("proxies", [])
     
-    # 只处理hysteria和hysteria2节点
+    # 处理hysteria2节点
     for proxy in proxies:
-        if proxy["type"] not in ["hysteria", "hysteria2"]:
-            continue
-            
-        # 如果类型是hysteria2
         if proxy["type"] == "hysteria2":
             server = proxy.get("server", "")
             port = int(proxy.get("port", 443))
@@ -75,7 +74,7 @@ def process_clash(data, index):
             hy2_meta = f"hysteria2://{auth}@{server}:{port}?insecure={insecure}&sni={sni}&obfs={obfs}&obfs-password={obfs_password}#{name}"
             merged_proxies.append(hy2_meta)
 
-        # 如果类型是hysteria
+        # 处理hysteria节点
         elif proxy["type"] == "hysteria":
             server = proxy.get("server", "")
             port = int(proxy.get("port", 443))
@@ -99,11 +98,8 @@ def process_clash(data, index):
             hysteria_meta = f"hysteria://{server}:{port}?peer={sni}&auth={auth}&insecure={insecure}&upmbps={up_mbps}&downmbps={down_mbps}&alpn={alpn}&mport={ports}&obfs={obfs}&protocol={protocol}&fastopen={fast_open}#{name}"
             merged_proxies.append(hysteria_meta)
 
-    # 以下代码已注释掉，仅保留hysteria/hysteria2节点
-
-    for proxy in proxies:
-        """
-        if proxy["type"] == "vless":
+        # 恢复vless节点解析
+        elif proxy["type"] == "vless":
             server = proxy.get("server", "")
             port = int(proxy.get("port", 443))
             udp = proxy.get("udp", "")
@@ -131,18 +127,20 @@ def process_clash(data, index):
                 security = "tls"
             location = get_physical_location(server)
             name = f"{location}_vless_{index}"
-            vless_meta = f"vless://{uuid}@{server}:{port}?security={security}&allowInsecure{insecure}&flow={flow}&type={network}&fp={fp}&pbk={publicKey}&sid={short_id}&sni={sni}&serviceName={grpc_serviceName}&path={ws_path}&host={ws_headers_host}#{name}"
-
+            # 修复原语法错误：allowInsecure→allowInsecure={insecure}
+            vless_meta = f"vless://{uuid}@{server}:{port}?security={security}&allowInsecure={insecure}&flow={flow}&type={network}&fp={fp}&pbk={publicKey}&sid={short_id}&sni={sni}&serviceName={grpc_serviceName}&path={ws_path}&host={ws_headers_host}#{name}"
             merged_proxies.append(vless_meta)
 
-        if proxy["type"] == "vmess":
+        # 恢复vmess节点解析
+        elif proxy["type"] == "vmess":
             server = proxy.get("server", "")
             port = int(proxy.get("port", 443))
             uuid = proxy.get("uuid", "")
-            # cipher = proxy.get("cipher", "")
             alterId = proxy.get("alterId", "")
             network = proxy.get("network", "")
             tls = int(proxy.get("tls", 0))
+            fp = proxy.get("client-fingerprint", "chrome")  # 补充默认值
+            insecure = int(proxy.get("skip-cert-verify", 0))  # 补充缺失的变量
             if tls == 0:
                 security = "none"
             elif tls == 1:
@@ -154,10 +152,30 @@ def process_clash(data, index):
             )
             location = get_physical_location(server)
             name = f"{location}_vmess_{index}"
-            vmess_meta = f"vmess://{uuid}@{server}:{port}?security={security}&allowInsecure{insecure}&type={network}&fp={fp}&sni={sni}&path={ws_path}&host={ws_headers_host}#{name}"
-
+            # 修复vmess链接格式（标准vmess为JSON Base64编码）
+            vmess_dict = {
+                "v": "2",
+                "ps": name,
+                "add": server,
+                "port": str(port),
+                "id": uuid,
+                "aid": alterId,
+                "scy": "auto",
+                "net": network,
+                "type": "none",
+                "host": ws_headers_host,
+                "path": ws_path,
+                "tls": "tls" if tls == 1 else "",
+                "sni": sni,
+                "fp": fp,
+                "alpn": "",
+                "skip-cert-verify": insecure == 1
+            }
+            vmess_json = json.dumps(vmess_dict, ensure_ascii=False)
+            vmess_meta = f"vmess://{base64.b64encode(vmess_json.encode()).decode()}"
             merged_proxies.append(vmess_meta)
 
+        # 恢复tuic节点解析
         elif proxy["type"] == "tuic":
             server = proxy.get("server", "")
             port = int(proxy.get("port", 443))
@@ -174,46 +192,10 @@ def process_clash(data, index):
             )
             location = get_physical_location(server)
             name = f"{location}_tuic_{index}"
-            # tuic_meta_neko = f"tuic://{server}:{port}?uuid={uuid}&version=5&password={password}&insecure={insecure}&alpn={alpn}&mode={udp_relay_mode}"
             tuic_meta = f"tuic://{uuid}:{password}@{server}:{port}?sni={sni}&congestion_control={congestion}&udp_relay_mode={udp_relay_mode}&alpn={alpn}&allow_insecure={insecure}#{name}"
             merged_proxies.append(tuic_meta)
-        """
-        if proxy["type"] == "hysteria2":
-            server = proxy.get("server", "")
-            port = int(proxy.get("port", 443))
-            auth = proxy.get("password", "")
-            obfs = proxy.get("obfs", "")
-            obfs_password = proxy.get("obfs-password", "")
-            sni = proxy.get("sni", "")
-            insecure = int(proxy.get("skip-cert-verify", 0))
-            location = get_physical_location(server)
-            name = f"{location}_hy2_{index}"
-            hy2_meta = f"hysteria2://{auth}@{server}:{port}?insecure={insecure}&sni={sni}&obfs={obfs}&obfs-password={obfs_password}#{name}"
-            merged_proxies.append(hy2_meta)
 
-        elif proxy["type"] == "hysteria":
-            server = proxy.get("server", "")
-            port = int(proxy.get("port", 443))
-            ports = proxy.get("port", "")
-            protocol = proxy.get("protocol", "udp")
-            up_mbps = 50
-            down_mbps = 80
-            alpn = (
-                proxy.get("alpn", [])[0]
-                if proxy.get("alpn") and len(proxy["alpn"]) > 0
-                else None
-            )
-            obfs = proxy.get("obfs", "")
-            insecure = int(proxy.get("skip-cert-verify", 0))
-            sni = proxy.get("sni", "")
-            fast_open = int(proxy.get("fast_open", 1))
-            auth = proxy.get("auth-str", "")
-            # 生成URL
-            location = get_physical_location(server)
-            name = f"{location}_hy_{index}"
-            hysteria_meta = f"hysteria://{server}:{port}?peer={sni}&auth={auth}&insecure={insecure}&upmbps={up_mbps}&downmbps={down_mbps}&alpn={alpn}&mport={ports}&obfs={obfs}&protocol={protocol}&fastopen={fast_open}#{name}"
-            merged_proxies.append(hysteria_meta)
-        """
+        # 恢复ssr节点解析
         elif proxy["type"] == "ssr":
             server = proxy.get("server", "")
             port = int(proxy.get("port", 443))
@@ -227,252 +209,22 @@ def process_clash(data, index):
             obfs_param = proxy.get("obfs-param", "")
             obfs_param = base64.b64encode(obfs_param.encode()).decode()
             # 生成URL
-            ssr_source = f"{server}:{port}:{protocol}:{cipher}:{obfs}:{password}/?obfsparam={obfs_param}&protoparam={protocol_param}&remarks=ssr_meta_{index}&protoparam{protocol_param}=&obfsparam={obfs_param}"
+            ssr_source = f"{server}:{port}:{protocol}:{cipher}:{obfs}:{password}/?obfsparam={obfs_param}&protoparam={protocol_param}&remarks={base64.b64encode(name.encode()).decode()}&protoparam={protocol_param}&obfsparam={obfs_param}"
             ssr_source = base64.b64encode(ssr_source.encode()).decode()
             ssr_meta = f"ssr://{ssr_source}"
             merged_proxies.append(ssr_meta)
 
-        # 目前仅支持最原始版本ss，无插件支持
-        elif proxy["type"] == "sstest":
-            server = proxy.get("server", "")
-            port = int(proxy.get("port", 443))
-            password = proxy.get("password", "")
-            cipher = proxy.get("cipher", "")
-            # 生成URL
-            ss_source = f"{cipher}:{password}@{server}:{port}"
-
-            ss_source = base64.b64encode(ss_source.encode()).decode()
-            ss_meta = f"ss://{ss_source}"
-            merged_proxies.append(ss_meta)
-        """
-
-
-def process_naive(data, index):
-    try:
-        # 保留原始代码但注释掉处理逻辑
-        """
-        json_data = json.loads(data)
-
-        proxy_str = json_data["proxy"]
-        # proxy_str = proxy_str.replace("https://", "")
-        naiveproxy = base64.b64encode(proxy_str.encode()).decode()
-        merged_proxies.append(naiveproxy)
-        """
-        # 不处理naive节点
-        pass
-    except Exception as e:
-        logging.error(f"Error processing naive data for index {index}: {e}")
-
-
-# 处理sing-box节点，待办
-def process_sb(data, index):
-    try:
-        # 保留原始代码但注释掉处理逻辑
-        """
-        json_data = json.loads(data)
-        # 处理 shadowtls 数据
-        server = json_data["outbounds"][1].get("server", "")
-        server_port = json_data["outbounds"][1].get("server_port", "")
-        method = json_data["outbounds"][0].get("method", "")
-        password = json_data["outbounds"][0].get("password", "")
-        version = int(json_data["outbounds"][1].get("version", 0))
-        host = json_data["outbounds"][1]["tls"].get("server_name", "")
-        shadowtls_password = json_data["outbounds"][1].get("password", "")
-
-        ss = f"{method}:{password}@{server}:{server_port}"
-        shadowtls = f'{{"version": "{version}", "host": "{host}","password":{shadowtls_password}}}'
-        shadowtls_proxy = (
-            "ss://"
-            + base64.b64encode(ss.encode()).decode()
-            + "?shadow-tls="
-            + base64.b64encode(shadowtls.encode()).decode()
-            + f"#shadowtls{index}"
-        )
-
-        merged_proxies.append(shadowtls_proxy)
-        """
-        # 不处理sing-box节点
-        pass
-    except Exception as e:
-        logging.error(f"Error processing shadowtls data for index {index}: {e}")
-
-
-# hysteria
-def process_hysteria(data, index):
-    try:
-        json_data = json.loads(data)
-        server_full = json_data.get("server", "")
-        match = re.match(r'^(.*):(\d+)$', server_full)
-        if match:
-            server = match.group(1)
-            port = match.group(2)
-        else:
-            server = server_full
-            port = 443
-
-        protocol = json_data.get("protocol", "")
-        up_mbps = json_data.get("up_mbps", "")
-        down_mbps = json_data.get("down_mbps", "")
-        alpn = json_data.get("alpn", "")
-        obfs = json_data.get("obfs", "")
-        insecure = int(json_data.get("insecure", 0))
-        server_name = json_data.get("server_name", "")
-        fast_open = int(json_data.get("fast_open", 0))
-        auth = json_data.get("auth_str", "")
-        
-        location = get_physical_location(server)
-        name = f"{location}_hysteria_{index}"
-        hysteria = f"hysteria://{server}:{port}?peer={server_name}&auth={auth}&insecure={insecure}&upmbps={up_mbps}&downmbps={down_mbps}&alpn={alpn}&obfs={obfs}&protocol={protocol}&fastopen={fast_open}#{name}"
-        merged_proxies.append(hysteria)
-
-    except Exception as e:
-        logging.error(f"Error processing hysteria data for index {index}: {e}")
-
-
-# 处理hysteria2
-def process_hysteria2(data, index):
-    try:
-        json_data = json.loads(data)
-        # 处理 hysteria2 数据
-        # 提取字段值
-        server = json_data["server"]
-        insecure = int(json_data["tls"]["insecure"])
-        sni = json_data["tls"]["sni"]
-        auth = json_data["auth"]
-        # 生成URL
-        location = get_physical_location(server)
-        name = f"{location}_hysteria2_{index}"
-        hysteria2 = f"hysteria2://{auth}@{server}?insecure={insecure}&sni={sni}#{name}"
-
-        merged_proxies.append(hysteria2)
-    except Exception as e:
-        logging.error(f"Error processing hysteria2 data for index {index}: {e}")
-
-
-# 处理xray
-def process_xray(data, index):
-    try:
-        # 保留原始代码但注释掉处理逻辑
-        """
-        json_data = json.loads(data)
-        # 处理 xray 数据
-        protocol = json_data["outbounds"][0].get("protocol")
-
-        if protocol == "vless":
-            vnext = json_data["outbounds"][0]["settings"]["vnext"]
-
-            if vnext:
-                server = vnext[0].get("address", "")
-                port = vnext[0].get("port", "")
-                users = vnext[0]["users"]
-
-                if users:
-                    user = users[0]
-                    uuid = user.get("id", "")
-                    flow = user.get("flow", "")
-
-            stream_settings = json_data["outbounds"][0].get("streamSettings", {})
-            network = stream_settings.get("network", "")
-            security = stream_settings.get("security", "")
-            reality_settings = stream_settings.get("realitySettings", {})
-
-            publicKey = reality_settings.get("publicKey", "")
-            short_id = reality_settings.get("shortId", "")
-            sni = reality_settings.get("serverName", "")
-            # tls
-            tls_settings = stream_settings.get("tlsSettings", {})
-            sni = tls_settings.get("serverName", sni)
-            insecure = int(tls_settings.get("allowInsecure", 0))
-
-            fp = reality_settings.get("fingerprint", "")
-            fp = tls_settings.get("fingerprint", fp)
-            spx = reality_settings.get("spiderX", "")
-
-            grpc_settings = stream_settings.get("grpcSettings", {})
-            grpc_serviceName = grpc_settings.get("serviceName", "")
-
-            ws_settings = stream_settings.get("wsSettings", {})
-            ws_path = ws_settings.get("path", "")
-            ws_headers_host = ws_settings.get("headers", {}).get("Host", "")
-            location = get_physical_location(server)
-            name = f"{location}_vless_{index}"
-            xray_proxy = f"vless://{uuid}@{server}:{port}?security={security}&allowInsecure={insecure}&flow={flow}&type={network}&fp={fp}&pbk={publicKey}&sid={short_id}&sni={sni}&serviceName={grpc_serviceName}&path={ws_path}&host={ws_headers_host}#{name}"
-
-            # 将当前proxy字典添加到所有proxies列表中
-            merged_proxies.append(xray_proxy)
-        # 不支持插件
-        if protocol == "shadowsocks":
-            server = json_data["outbounds"][0]["settings"]["servers"]["address"]
-            method = json_data["outbounds"][0]["settings"]["servers"]["method"]
-            password = json_data["outbounds"][0]["settings"]["servers"]["password"]
-            port = json_data["outbounds"][0]["settings"]["servers"]["port"]
-            # 生成URL
-            ss_source = f"{method}:{password}@{server}:{port}"
-            ss_source = base64.b64encode(ss_source.encode()).decode()
-            xray_proxy = f"ss://{ss_source}"
-
-            # 将当前proxy字典添加到所有proxies列表中
-            merged_proxies.append(xray_proxy)
-        """
-        # 不处理xray节点
-        pass
-    except Exception as e:
-        logging.error(f"Error processing xray data for index {index}: {e}")
-
-
-# 去重函数：移除除名称外所有属性相同的节点
-def remove_duplicate_proxies(proxies):
-    # 创建签名字典，键为属性元组，值为节点对象
-    signature_map = OrderedDict()
-    
-    for proxy in proxies:
-        # 提取配置部分（去掉名称）
-        if '#' in proxy:
-            config_part = proxy.split('#', 1)[0]
-        else:
-            config_part = proxy
-        
-        # 使用配置部分作为签名
-        if config_part not in signature_map:
-            signature_map[config_part] = proxy
-    
-    # 返回去重后的节点列表（保留第一个出现的节点）
-    return list(signature_map.values())
-
-
-# 定义一个空列表用于存储合并后的代理配置
-merged_proxies = []
-
-# 处理 clash URLs - 只处理hysteria/hysteria2
+# 执行节点处理
 process_urls("./urls/clash_urls.txt", process_clash)
 
-# 处理 shadowtls URLs - 跳过
-# process_urls('./urls/sb_urls.txt', process_sb)
+# 去重（基于链接内容）
+merged_proxies = list(OrderedDict.fromkeys(merged_proxies))
 
-# 处理 naive URLs - 跳过
-# process_urls("./urls/naiverproxy_urls.txt", process_naive)
+# 生成Base64订阅文件
+with open("./sub/base64.txt", "w", encoding="utf-8") as f:
+    # 合并所有节点并编码为Base64
+    all_proxies = "\n".join(merged_proxies)
+    base64_data = base64.b64encode(all_proxies.encode()).decode()
+    f.write(base64_data)
 
-# 处理 hysteria URLs
-process_urls("./urls/hysteria_urls.txt", process_hysteria)
-
-# 处理 hysteria2 URLs
-process_urls("./urls/hysteria2_urls.txt", process_hysteria2)
-
-# 处理 xray URLs - 跳过
-# process_urls("./urls/xray_urls.txt", process_xray)
-
-# 去重处理：移除除名称外所有属性相同的节点
-merged_proxies = remove_duplicate_proxies(merged_proxies)
-
-# 将结果写入文件
-merged_content = "\n".join(merged_proxies)
-
-try:
-    encoded_content = base64.b64encode(merged_content.encode("utf-8")).decode("utf-8")
-
-    with open("./sub/base64.txt", "w") as encoded_file:
-        encoded_file.write(encoded_content)
-
-    print(f"聚合完成，保留 {len(merged_proxies)} 个hysteria/hysteria2节点（已去重）")
-except Exception as e:
-    print(f"Error encoding and writing to file: {e}")
+print(f"Base64订阅生成完成，共 {len(merged_proxies)} 个节点（已去重）")
