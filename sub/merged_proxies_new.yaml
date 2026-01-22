@@ -123,13 +123,13 @@ proxy-groups:
   type: select
   proxies:
   - 自动选择
-  - France_Paris_hysteria_0_5
   - France_Paris_vless_0_3
   - United States_Unknown_hy2_0
   - Germany_Unknown_hysteria_0_2
   - Germany_Unknown_hysteria_0_1
-  - France_Paris_hysteria_0_4
+  - France_Paris_hysteria_0_5
   - Germany_Unknown_hy_0
+  - France_Paris_hysteria_0_4
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
