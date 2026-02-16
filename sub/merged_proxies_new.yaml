@@ -233,21 +233,21 @@ proxy-groups:
   type: select
   proxies:
   - 自动选择
+  - France_Paris_vless_0_3
+  - France_Paris_vless_2_3
+  - United States_Unknown_hy2_1
+  - United States_Unknown_hy2_3
+  - United States_Chicago_hy_1
+  - France_Paris_hysteria_0_5
+  - United States_Unknown_hysteria_4_1
+  - Germany_Unknown_hy_2
+  - France_Paris_hy2_2
+  - United States_Unknown_hy2_0
   - Germany_Unknown_hysteria_0_2
   - France_Paris_hysteria_0_4
-  - United States_Unknown_hysteria_4_1
-  - United States_Unknown_hy2_0
-  - France_Paris_vless_2_3
-  - Germany_Unknown_hy_2
-  - United States_Unknown_hy2_1
-  - Germany_Unknown_hysteria_0_1
-  - United States_Chicago_hy_1
-  - Germany_Unknown_hy_0
-  - United States_Unknown_hy2_3
-  - France_Paris_hy2_2
-  - France_Paris_vless_0_3
   - France_Paris_vless_2_2
-  - France_Paris_hysteria_0_5
+  - Germany_Unknown_hysteria_0_1
+  - Germany_Unknown_hy_0
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
