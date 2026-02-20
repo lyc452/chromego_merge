@@ -25,18 +25,19 @@ dns:
     ipcidr:
     - 240.0.0.0/4
 proxies:
-- name: Germany_Unknown_hysteria_0_1
-  type: hysteria
+- name: Germany_Unknown_tuic_0_1
   server: ip1.758733.xyz
-  port: 23008
-  auth-str: alvin9999.com
+  port: 10088
+  type: tuic
+  uuid: 9bbd1f42-7ae7-4239-bd10-a68de95e3295
+  password: dongtaiwang.com
   sni: apple.com
-  skip-cert-verify: true
   alpn:
   - h3
-  protocol: udp
-  up: 11 Mbps
-  down: 55 Mbps
+  request-timeout: 8000
+  udp-relay-mode: native
+  skip-cert-verify: true
+  congestion-controller: bbr
 - name: France_Paris_vless_0_2
   type: vless
   server: 2001:bc8:32d7:181::2
@@ -208,25 +209,25 @@ proxy-groups:
   type: select
   proxies:
   - 自动选择
-  - France_Paris_vless_0_4
-  - France_Paris_vless_0_3
-  - United States_Unknown_hysteria_4_1
-  - United States_Unknown_hy2_3
-  - Germany_Unknown_hy2_0
-  - France_Paris_hy2_2
-  - United States_Unknown_hy2_1
-  - Germany_Unknown_hy_2
-  - France_Paris_vless_0_5
+  - Germany_Unknown_tuic_0_1
   - Germany_Unknown_hy_0
   - France_Paris_vless_0_2
-  - Germany_Unknown_hysteria_0_1
+  - Germany_Unknown_hy_2
+  - United States_Unknown_hy2_3
+  - France_Paris_vless_0_3
+  - France_Paris_vless_0_5
+  - United States_Unknown_hysteria_4_1
+  - France_Paris_hy2_2
+  - France_Paris_vless_0_4
+  - Germany_Unknown_hy2_0
+  - United States_Unknown_hy2_1
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
   interval: 300
   tolerance: 50
   proxies:
-  - Germany_Unknown_hysteria_0_1
+  - Germany_Unknown_tuic_0_1
   - France_Paris_vless_0_2
   - France_Paris_vless_0_3
   - France_Paris_vless_0_4
