@@ -146,6 +146,19 @@ proxies:
       enabled: true
       up: 50
       down: 100
+- name: United States_Unknown_tuic_3_1
+  server: 157.254.223.48
+  port: 11540
+  type: tuic
+  uuid: 6845cb43-4b8d-49e8-a011-1051d6c4d2ae
+  password: 6845cb43-4b8d-49e8-a011-1051d6c4d2ae
+  sni: www.microsoft.com
+  alpn:
+  - h3
+  request-timeout: 8000
+  udp-relay-mode: native
+  skip-cert-verify: true
+  congestion-controller: bbr
 - name: United States_Unknown_hysteria_4_1
   type: hysteria
   server: 2a14:7584:d097::a
@@ -184,13 +197,13 @@ proxies:
   skip-cert-verify: true
   alpn:
   - h3
-- name: Germany_Unknown_hy2_0
+- name: United States_Unknown_hy2_0
   type: hysteria2
-  server: 89.144.35.34
-  port: 43608
+  server: 157.254.223.43
+  port: 27921
   password: dongtaiwang.com
   fast-open: true
-  sni: apple.com
+  sni: www.bing.com
   skip-cert-verify: true
 - name: United States_Unknown_hy2_1
   type: hysteria2
@@ -202,38 +215,30 @@ proxies:
   skip-cert-verify: true
 - name: France_Paris_hy2_2
   type: hysteria2
-  server: 62.210.124.146
+  server: 2001:bc8:32d7:17b::3
   port: 22000
   password: dongtaiwang.com
   fast-open: true
   sni: www.microsoft.com
-  skip-cert-verify: true
-- name: United States_Unknown_hy2_3
-  type: hysteria2
-  server: 2a14:7584:d04a::a
-  port: 50022
-  password: dongtaiwang.com
-  fast-open: true
-  sni: apple.com
   skip-cert-verify: true
 proxy-groups:
 - name: 节点选择
   type: select
   proxies:
   - 自动选择
-  - Germany_Unknown_hy2_0
-  - United States_Unknown_hysteria_4_1
-  - Germany_Unknown_hy_0
-  - France_Paris_vless_0_5
-  - France_Paris_hy2_2
-  - France_Paris_vless_0_4
-  - France_Paris_vless_2_2
-  - Germany_Unknown_hysteria_0_2
-  - Germany_Unknown_tuic_0_1
-  - United States_Unknown_hy2_1
-  - United States_Unknown_hy2_3
   - Germany_Unknown_hy_2
+  - United States_Unknown_hy2_0
+  - France_Paris_hy2_2
+  - Germany_Unknown_tuic_0_1
+  - United States_Unknown_hysteria_4_1
+  - United States_Unknown_tuic_3_1
+  - France_Paris_vless_2_2
+  - Germany_Unknown_hy_0
+  - United States_Unknown_hy2_1
+  - France_Paris_vless_0_4
+  - Germany_Unknown_hysteria_0_2
   - France_Paris_vless_0_3
+  - France_Paris_vless_0_5
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
@@ -246,13 +251,13 @@ proxy-groups:
   - France_Paris_vless_0_4
   - France_Paris_vless_0_5
   - France_Paris_vless_2_2
+  - United States_Unknown_tuic_3_1
   - United States_Unknown_hysteria_4_1
   - Germany_Unknown_hy_0
   - Germany_Unknown_hy_2
-  - Germany_Unknown_hy2_0
+  - United States_Unknown_hy2_0
   - United States_Unknown_hy2_1
   - France_Paris_hy2_2
-  - United States_Unknown_hy2_3
 rules:
 - DOMAIN,clash.razord.top,DIRECT
 - DOMAIN,yacd.haishan.me,DIRECT
