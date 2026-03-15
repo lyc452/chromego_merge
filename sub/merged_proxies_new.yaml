@@ -205,13 +205,13 @@ proxies:
   fast-open: true
   sni: www.bing.com
   skip-cert-verify: true
-- name: United States_Unknown_hy2_1
+- name: Cyprus_Unknown_hy2_1
   type: hysteria2
-  server: 157.254.223.24
-  port: 30088
-  password: alvin9999.com
+  server: 2a10:3c80:0:f::2
+  port: 39463
+  password: VNws548Lj/fDRk58HE6dKAcTNpb8+iIk+ycqKEBNG/U=
   fast-open: true
-  sni: apple.com
+  sni: www.microsoft.com
   skip-cert-verify: true
 - name: France_Paris_hy2_2
   type: hysteria2
@@ -226,19 +226,19 @@ proxy-groups:
   type: select
   proxies:
   - 自动选择
-  - France_Paris_vless_0_5
+  - Germany_Unknown_hy_0
   - United States_Unknown_tuic_3_1
-  - United States_Unknown_hy2_0
   - Germany_Unknown_tuic_0_1
   - Germany_Unknown_hy_2
-  - United States_Unknown_hysteria_4_1
-  - France_Paris_hy2_2
-  - Germany_Unknown_hy_0
   - France_Paris_vless_0_3
-  - France_Paris_vless_2_2
-  - United States_Unknown_hy2_1
-  - Germany_Unknown_hysteria_0_2
+  - France_Paris_vless_0_5
+  - United States_Unknown_hy2_0
+  - Cyprus_Unknown_hy2_1
+  - United States_Unknown_hysteria_4_1
   - France_Paris_vless_0_4
+  - France_Paris_hy2_2
+  - Germany_Unknown_hysteria_0_2
+  - France_Paris_vless_2_2
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
@@ -256,7 +256,7 @@ proxy-groups:
   - Germany_Unknown_hy_0
   - Germany_Unknown_hy_2
   - United States_Unknown_hy2_0
-  - United States_Unknown_hy2_1
+  - Cyprus_Unknown_hy2_1
   - France_Paris_hy2_2
 rules:
 - DOMAIN,clash.razord.top,DIRECT
