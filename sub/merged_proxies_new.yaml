@@ -122,20 +122,7 @@ proxies:
       enabled: true
       up: 50
       down: 100
-- name: United States_Unknown_tuic_1_1
-  server: 157.254.223.24
-  port: 41122
-  type: tuic
-  uuid: 2aec7bfd-4178-4ee5-9bc5-fe4c241fdc15
-  password: 2aec7bfd-4178-4ee5-9bc5-fe4c241fdc15
-  sni: www.microsoft.com
-  alpn:
-  - h3
-  request-timeout: 8000
-  udp-relay-mode: native
-  skip-cert-verify: true
-  congestion-controller: bbr
-- name: France_Paris_hysteria_2_1
+- name: France_Paris_hysteria_1_1
   type: hysteria
   server: 195.154.200.13
   port: 45008
@@ -147,7 +134,7 @@ proxies:
   protocol: udp
   up: 11 Mbps
   down: 55 Mbps
-- name: France_Paris_vless_2_2
+- name: France_Paris_vless_1_2
   type: vless
   server: 2001:bc8:32d7:181::2
   port: 17401
@@ -171,6 +158,19 @@ proxies:
       enabled: true
       up: 50
       down: 100
+- name: United States_Unknown_tuic_2_1
+  server: 157.254.223.24
+  port: 41122
+  type: tuic
+  uuid: 2aec7bfd-4178-4ee5-9bc5-fe4c241fdc15
+  password: 2aec7bfd-4178-4ee5-9bc5-fe4c241fdc15
+  sni: www.microsoft.com
+  alpn:
+  - h3
+  request-timeout: 8000
+  udp-relay-mode: native
+  skip-cert-verify: true
+  congestion-controller: bbr
 - name: United States_Unknown_tuic_3_1
   server: 157.254.223.48
   port: 11540
@@ -264,22 +264,22 @@ proxy-groups:
   type: select
   proxies:
   - 自动选择
-  - Germany_Unknown_hy_2
-  - Germany_Unknown_hysteria_0_2
-  - France_Paris_hysteria_2_1
+  - Germany_Unknown_tuic_0_1
+  - Cyprus_Unknown_hy2_1
+  - France_Paris_hy2_2
+  - France_Paris_vless_0_3
+  - United States_Unknown_tuic_2_1
+  - France_Paris_vless_0_5
   - United States_Unknown_tuic_3_1
   - United States_Unknown_hysteria_4_1
-  - France_Paris_hy2_2
-  - France_Paris_vless_2_2
-  - United States_Unknown_hy2_0
-  - Germany_Unknown_tuic_0_1
-  - France_Paris_vless_0_5
-  - France_Paris_vless_0_3
   - Taiwan_Taipei_hy_1
+  - Germany_Unknown_hy_2
+  - France_Paris_vless_1_2
   - Germany_Unknown_hy_0
   - France_Paris_vless_0_4
-  - United States_Unknown_tuic_1_1
-  - Cyprus_Unknown_hy2_1
+  - United States_Unknown_hy2_0
+  - France_Paris_hysteria_1_1
+  - Germany_Unknown_hysteria_0_2
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
@@ -291,9 +291,9 @@ proxy-groups:
   - France_Paris_vless_0_3
   - France_Paris_vless_0_4
   - France_Paris_vless_0_5
-  - United States_Unknown_tuic_1_1
-  - France_Paris_hysteria_2_1
-  - France_Paris_vless_2_2
+  - France_Paris_hysteria_1_1
+  - France_Paris_vless_1_2
+  - United States_Unknown_tuic_2_1
   - United States_Unknown_tuic_3_1
   - United States_Unknown_hysteria_4_1
   - Germany_Unknown_hy_0
