@@ -52,19 +52,6 @@ proxies:
   skip-cert-verify: true
   congestion-controller: bbr
 - name: Germany_Unknown_tuic_2_1
-  server: 178.18.147.199
-  port: 42487
-  type: tuic
-  uuid: b35b50d1-7830-4a68-94db-349c2d2f8e43
-  password: b35b50d1-7830-4a68-94db-349c2d2f8e43
-  sni: www.microsoft.com
-  alpn:
-  - h3
-  request-timeout: 8000
-  udp-relay-mode: native
-  skip-cert-verify: true
-  congestion-controller: bbr
-- name: Germany_Unknown_tuic_3_1
   server: 5.178.101.117
   port: 30006
   type: tuic
@@ -123,14 +110,6 @@ proxies:
   fast-open: true
   sni: www.bing.com
   skip-cert-verify: true
-- name: Cyprus_Unknown_hy2_1
-  type: hysteria2
-  server: 2a10:3c80:0:f::2
-  port: 39463
-  password: VNws548Lj/fDRk58HE6dKAcTNpb8+iIk+ycqKEBNG/U=
-  fast-open: true
-  sni: www.microsoft.com
-  skip-cert-verify: true
 - name: France_Paris_hy2_2
   type: hysteria2
   server: 2001:bc8:32d7:17b::3
@@ -144,16 +123,14 @@ proxy-groups:
   type: select
   proxies:
   - 自动选择
-  - France_Paris_tuic_0_1
-  - Germany_Unknown_hy_2
-  - Cyprus_Unknown_hy2_1
-  - Germany_Unknown_tuic_3_1
-  - France_Paris_tuic_1_1
-  - France_Paris_hy2_2
-  - United States_Unknown_hysteria_4_1
   - Germany_Unknown_hy_0
-  - United States_Unknown_hy2_0
   - Germany_Unknown_tuic_2_1
+  - France_Paris_tuic_0_1
+  - France_Paris_hy2_2
+  - United States_Unknown_hy2_0
+  - Germany_Unknown_hy_2
+  - France_Paris_tuic_1_1
+  - United States_Unknown_hysteria_4_1
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
@@ -163,12 +140,10 @@ proxy-groups:
   - France_Paris_tuic_0_1
   - France_Paris_tuic_1_1
   - Germany_Unknown_tuic_2_1
-  - Germany_Unknown_tuic_3_1
   - United States_Unknown_hysteria_4_1
   - Germany_Unknown_hy_0
   - Germany_Unknown_hy_2
   - United States_Unknown_hy2_0
-  - Cyprus_Unknown_hy2_1
   - France_Paris_hy2_2
 rules:
 - DOMAIN,clash.razord.top,DIRECT
