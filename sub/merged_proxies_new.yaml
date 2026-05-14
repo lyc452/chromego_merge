@@ -38,19 +38,18 @@ proxies:
   udp-relay-mode: native
   skip-cert-verify: true
   congestion-controller: bbr
-- name: France_Paris_tuic_1_1
-  server: 163.172.116.154
-  port: 33887
-  type: tuic
-  uuid: 9adb384a-0f16-4501-a8f3-b6b2556fce87
-  password: dongtaiwang.com
+- name: France_Paris_hysteria_1_1
+  type: hysteria
+  server: 163.172.117.163
+  port: 36699
+  auth-str: dongtaiwang.com
   sni: bing.com
+  skip-cert-verify: true
   alpn:
   - h3
-  request-timeout: 8000
-  udp-relay-mode: native
-  skip-cert-verify: true
-  congestion-controller: bbr
+  protocol: udp
+  up: 11 Mbps
+  down: 55 Mbps
 - name: Germany_Unknown_tuic_2_1
   server: 5.178.101.117
   port: 30006
@@ -133,13 +132,13 @@ proxy-groups:
   - 自动选择
   - United States_Unknown_hy2_1
   - France_Paris_tuic_0_1
+  - Germany_Unknown_hy_0
+  - Germany_Unknown_hy_2
+  - France_Paris_hy2_2
+  - France_Paris_hysteria_1_1
   - United States_Unknown_hysteria_4_1
   - France_Paris_hy2_0
   - Germany_Unknown_tuic_2_1
-  - Germany_Unknown_hy_0
-  - France_Paris_hy2_2
-  - France_Paris_tuic_1_1
-  - Germany_Unknown_hy_2
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
@@ -147,7 +146,7 @@ proxy-groups:
   tolerance: 50
   proxies:
   - France_Paris_tuic_0_1
-  - France_Paris_tuic_1_1
+  - France_Paris_hysteria_1_1
   - Germany_Unknown_tuic_2_1
   - United States_Unknown_hysteria_4_1
   - Germany_Unknown_hy_0
