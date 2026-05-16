@@ -25,19 +25,18 @@ dns:
     ipcidr:
     - 240.0.0.0/4
 proxies:
-- name: France_Paris_tuic_0_1
-  server: ip1.758733.xyz
-  port: 10088
-  type: tuic
-  uuid: 9bbd1f42-7ae7-4239-bd10-a68de95e3295
-  password: dongtaiwang.com
-  sni: apple.com
+- name: France_Paris_hysteria_0_1
+  type: hysteria
+  server: 62.210.29.98
+  port: 10066
+  auth-str: github.com/Alvin9999-newpac/fanqiang
+  sni: bing.com
+  skip-cert-verify: true
   alpn:
   - h3
-  request-timeout: 8000
-  udp-relay-mode: native
-  skip-cert-verify: true
-  congestion-controller: bbr
+  protocol: udp
+  up: 11 Mbps
+  down: 55 Mbps
 - name: France_Paris_hysteria_1_1
   type: hysteria
   server: 163.172.117.163
@@ -130,14 +129,14 @@ proxy-groups:
   type: select
   proxies:
   - 自动选择
+  - France_Paris_hysteria_0_1
+  - France_Paris_hy2_0
+  - Germany_Unknown_hy_2
+  - United States_Unknown_hysteria_4_1
+  - France_Paris_hysteria_1_1
+  - Germany_Unknown_tuic_2_1
   - United States_Unknown_hy2_1
   - Germany_Unknown_hy_0
-  - France_Paris_hysteria_1_1
-  - France_Paris_hy2_0
-  - France_Paris_tuic_0_1
-  - United States_Unknown_hysteria_4_1
-  - Germany_Unknown_tuic_2_1
-  - Germany_Unknown_hy_2
   - France_Paris_hy2_2
 - name: 自动选择
   type: url-test
@@ -145,7 +144,7 @@ proxy-groups:
   interval: 300
   tolerance: 50
   proxies:
-  - France_Paris_tuic_0_1
+  - France_Paris_hysteria_0_1
   - France_Paris_hysteria_1_1
   - Germany_Unknown_tuic_2_1
   - United States_Unknown_hysteria_4_1
