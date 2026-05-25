@@ -108,13 +108,13 @@ proxies:
   fast-open: true
   sni: www.microsoft.com
   skip-cert-verify: true
-- name: United States_Unknown_hy2_1
+- name: France_Paris_hy2_1
   type: hysteria2
-  server: 157.254.223.43
-  port: 27921
-  password: dongtaiwang.com
+  server: 163.172.126.108
+  port: 41227
+  password: github.com/Alvin9999-newpac/fanqiang
   fast-open: true
-  sni: www.bing.com
+  sni: www.microsoft.com
   skip-cert-verify: true
 - name: France_Paris_hy2_2
   type: hysteria2
@@ -129,15 +129,15 @@ proxy-groups:
   type: select
   proxies:
   - 自动选择
+  - France_Paris_hy2_0
+  - France_Paris_hy2_1
+  - Germany_Unknown_hy_0
   - Germany_Unknown_tuic_2_1
+  - United States_Unknown_hysteria_4_1
   - France_Paris_hysteria_1_1
   - Germany_Unknown_hy_2
-  - United States_Unknown_hy2_1
-  - Germany_Unknown_hy_0
   - France_Paris_hy2_2
-  - United States_Unknown_hysteria_4_1
   - France_Paris_hysteria_0_1
-  - France_Paris_hy2_0
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
@@ -151,7 +151,7 @@ proxy-groups:
   - Germany_Unknown_hy_0
   - Germany_Unknown_hy_2
   - France_Paris_hy2_0
-  - United States_Unknown_hy2_1
+  - France_Paris_hy2_1
   - France_Paris_hy2_2
 rules:
 - DOMAIN,clash.razord.top,DIRECT
