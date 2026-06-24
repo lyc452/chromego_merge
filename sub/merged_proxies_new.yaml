@@ -27,11 +27,11 @@ dns:
 proxies:
 - name: France_Paris_hysteria2_0_1
   type: hysteria2
-  server: 62.210.124.132
-  port: 64772
+  server: clash-ip1.934618.xyz
+  port: 18271
   password: github.com/Alvin9999-newpac/fanqiang
-  sni: bing.com
-  skip-cert-verify: true
+  sni: clash-ip1.934618.xyz
+  skip-cert-verify: false
   up: 11 Mbps
   down: 55 Mbps
 - name: France_Paris_hysteria_1_1
@@ -139,16 +139,16 @@ proxy-groups:
   type: select
   proxies:
   - 自动选择
-  - France_Paris_hy2_2
+  - Germany_Unknown_hy_0
+  - Germany_Unknown_hy_2
   - France_Paris_hy2_0
   - France_Paris_hysteria2_0_1
-  - Germany_Unknown_hy_1
-  - Germany_Unknown_hy_2
-  - Germany_Unknown_hy_0
   - France_Paris_hysteria_1_1
+  - France_Paris_hy2_2
   - Germany_Unknown_tuic_2_1
-  - France_Paris_hy2_1
   - United States_Unknown_hysteria_4_1
+  - Germany_Unknown_hy_1
+  - France_Paris_hy2_1
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
