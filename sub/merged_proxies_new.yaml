@@ -97,7 +97,7 @@ proxies:
   skip-cert-verify: true
   alpn:
   - h3
-- name: Germany_Unknown_hy_3
+- name: Germany_Unknown_hy_2
   type: hysteria
   server: 5.83.129.90
   port: 54177
@@ -118,7 +118,15 @@ proxies:
   fast-open: true
   sni: www.838491.xyz
   skip-cert-verify: false
-- name: France_Paris_hy2_3
+- name: France_Paris_hy2_1
+  type: hysteria2
+  server: 62.210.147.2
+  port: 43115
+  password: github.com/Alvin9999-newpac/fanqiang
+  fast-open: true
+  sni: www.microsoft.com
+  skip-cert-verify: true
+- name: France_Paris_hy2_2
   type: hysteria2
   server: 2001:bc8:32d7:17b::3
   port: 22000
@@ -131,15 +139,16 @@ proxy-groups:
   type: select
   proxies:
   - 自动选择
-  - France_Paris_hy2_0
   - Germany_Unknown_hy_0
-  - United States_Unknown_hysteria_4_1
   - France_Paris_hysteria2_0_1
-  - France_Paris_hy2_3
+  - Germany_Unknown_hy_2
+  - France_Paris_hy2_2
   - Germany_Unknown_tuic_2_1
-  - Germany_Unknown_hy_1
+  - United States_Unknown_hysteria_4_1
   - France_Paris_hysteria_1_1
-  - Germany_Unknown_hy_3
+  - France_Paris_hy2_0
+  - Germany_Unknown_hy_1
+  - France_Paris_hy2_1
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
@@ -152,9 +161,10 @@ proxy-groups:
   - United States_Unknown_hysteria_4_1
   - Germany_Unknown_hy_0
   - Germany_Unknown_hy_1
-  - Germany_Unknown_hy_3
+  - Germany_Unknown_hy_2
   - France_Paris_hy2_0
-  - France_Paris_hy2_3
+  - France_Paris_hy2_1
+  - France_Paris_hy2_2
 rules:
 - DOMAIN,clash.razord.top,DIRECT
 - DOMAIN,yacd.haishan.me,DIRECT
