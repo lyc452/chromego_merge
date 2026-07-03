@@ -25,13 +25,16 @@ dns:
     ipcidr:
     - 240.0.0.0/4
 proxies:
-- name: France_Paris_hysteria2_0_1
-  type: hysteria2
-  server: clash-ip1.934618.xyz
-  port: 18271
-  password: github.com/Alvin9999-newpac/fanqiang
-  sni: clash-ip1.934618.xyz
-  skip-cert-verify: false
+- name: France_Paris_hysteria_0_1
+  type: hysteria
+  server: 62.210.70.191
+  port: 23556
+  auth-str: github.com/Alvin9999-newpac/fanqiang
+  sni: bing.com
+  skip-cert-verify: true
+  alpn:
+  - h3
+  protocol: udp
   up: 11 Mbps
   down: 55 Mbps
 - name: France_Paris_hysteria_1_1
@@ -73,32 +76,6 @@ proxies:
   down: 55 Mbps
 - name: Germany_Unknown_hy_0
   type: hysteria
-  server: 5.83.129.153
-  port: 20088
-  auth_str: dongtaiwang.com
-  up: 1000
-  down: 1000
-  fast-open: true
-  protocol: udp
-  sni: apple.com
-  skip-cert-verify: true
-  alpn:
-  - h3
-- name: Germany_Unknown_hy_1
-  type: hysteria
-  server: 5.83.129.153
-  port: 27626
-  auth_str: github.com/Alvin9999-newpac/fanqiang
-  up: 1000
-  down: 1000
-  fast-open: true
-  protocol: udp
-  sni: bing.com
-  skip-cert-verify: true
-  alpn:
-  - h3
-- name: Germany_Unknown_hy_2
-  type: hysteria
   server: 5.83.129.90
   port: 54177
   auth_str: dongtaiwang.com
@@ -112,12 +89,12 @@ proxies:
   - h3
 - name: France_Paris_hy2_0
   type: hysteria2
-  server: www.838491.xyz
-  port: 13377
-  password: dongtaiwang.com
+  server: 62.210.27.216
+  port: 60111
+  password: github.com/Alvin9999-newpac/fanqiang
   fast-open: true
-  sni: www.838491.xyz
-  skip-cert-verify: false
+  sni: bing.com
+  skip-cert-verify: true
 - name: France_Paris_hy2_1
   type: hysteria2
   server: 62.210.147.2
@@ -139,29 +116,25 @@ proxy-groups:
   type: select
   proxies:
   - 自动选择
-  - Germany_Unknown_hy_2
-  - France_Paris_hy2_2
-  - Germany_Unknown_hy_1
-  - Germany_Unknown_hy_0
-  - France_Paris_hysteria2_0_1
   - United States_Unknown_hysteria_4_1
-  - France_Paris_hy2_1
-  - Germany_Unknown_tuic_2_1
-  - France_Paris_hy2_0
+  - Germany_Unknown_hy_0
   - France_Paris_hysteria_1_1
+  - France_Paris_hy2_0
+  - France_Paris_hysteria_0_1
+  - Germany_Unknown_tuic_2_1
+  - France_Paris_hy2_1
+  - France_Paris_hy2_2
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
   interval: 300
   tolerance: 50
   proxies:
-  - France_Paris_hysteria2_0_1
+  - France_Paris_hysteria_0_1
   - France_Paris_hysteria_1_1
   - Germany_Unknown_tuic_2_1
   - United States_Unknown_hysteria_4_1
   - Germany_Unknown_hy_0
-  - Germany_Unknown_hy_1
-  - Germany_Unknown_hy_2
   - France_Paris_hy2_0
   - France_Paris_hy2_1
   - France_Paris_hy2_2
