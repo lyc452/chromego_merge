@@ -25,11 +25,11 @@ dns:
     ipcidr:
     - 240.0.0.0/4
 proxies:
-- name: France_Paris_hysteria_1_1
+- name: France_Paris_hysteria_0_1
   type: hysteria
-  server: 163.172.117.163
-  port: 36699
-  auth-str: dongtaiwang.com
+  server: 62.210.70.191
+  port: 23556
+  auth-str: github.com/Alvin9999-newpac/fanqiang
   sni: bing.com
   skip-cert-verify: true
   alpn:
@@ -37,11 +37,11 @@ proxies:
   protocol: udp
   up: 11 Mbps
   down: 55 Mbps
-- name: France_Paris_hysteria_2_1
+- name: France_Paris_hysteria_1_1
   type: hysteria
-  server: 62.210.70.191
-  port: 23556
-  auth-str: github.com/Alvin9999-newpac/fanqiang
+  server: 163.172.117.163
+  port: 36699
+  auth-str: dongtaiwang.com
   sni: bing.com
   skip-cert-verify: true
   alpn:
@@ -103,21 +103,21 @@ proxy-groups:
   type: select
   proxies:
   - 自动选择
+  - France_Paris_hy2_0
+  - United States_Unknown_hysteria_4_1
+  - France_Paris_hy2_2
+  - France_Paris_hysteria_0_1
+  - France_Paris_hy2_1
   - Germany_Unknown_hy_2
   - France_Paris_hysteria_1_1
-  - France_Paris_hy2_0
-  - France_Paris_hy2_1
-  - France_Paris_hy2_2
-  - United States_Unknown_hysteria_4_1
-  - France_Paris_hysteria_2_1
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
   interval: 300
   tolerance: 50
   proxies:
+  - France_Paris_hysteria_0_1
   - France_Paris_hysteria_1_1
-  - France_Paris_hysteria_2_1
   - United States_Unknown_hysteria_4_1
   - Germany_Unknown_hy_2
   - France_Paris_hy2_0
