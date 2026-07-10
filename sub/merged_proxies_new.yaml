@@ -76,7 +76,7 @@ proxies:
   - h3
 - name: France_Paris_hy2_0
   type: hysteria2
-  server: 62.210.27.216
+  server: 62.210.7.139
   port: 60111
   password: github.com/Alvin9999-newpac/fanqiang
   fast-open: true
@@ -103,13 +103,13 @@ proxy-groups:
   type: select
   proxies:
   - 自动选择
-  - France_Paris_hysteria_1_1
   - France_Paris_hy2_2
   - France_Paris_hysteria_0_1
-  - Germany_Unknown_hy_2
-  - France_Paris_hy2_0
-  - France_Paris_hy2_1
   - United States_Unknown_hysteria_4_1
+  - France_Paris_hy2_1
+  - France_Paris_hy2_0
+  - France_Paris_hysteria_1_1
+  - Germany_Unknown_hy_2
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
