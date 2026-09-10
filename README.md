@@ -49,6 +49,7 @@ https://github.com/lyc452/chromego_merge/raw/main/sub/base64.txt
 
 - [Alvin9999-newpac（原Alvin9999）](https://github.com/Alvin9999-newpac)
 - [sing-box-subscribe](https://github.com/Toperlock/sing-box-subscribe)
+- [clash-rules](https://github.com/Loyalsoldier/clash-rules)
 
 区域设置代码截取自:
 
