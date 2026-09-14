@@ -136,6 +136,10 @@ rules:
   - RULE-SET,applications,DIRECT
   - DOMAIN,clash.razord.top,DIRECT
   - DOMAIN,yacd.haishan.me,DIRECT
+  - DOMAIN,koyso.com,DIRECT
+  - DOMAIN,koysobackup.com,DIRECT
+  - DOMAIN,playzip.com,DIRECT
+  - DOMAIN-SUFFIX,gkd.li,DIRECT
   - RULE-SET,private,DIRECT
   - RULE-SET,reject,REJECT
   - RULE-SET,icloud,DIRECT
