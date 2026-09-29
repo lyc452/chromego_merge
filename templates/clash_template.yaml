@@ -133,13 +133,14 @@ rule-providers:
     interval: 86400
 
 rules:
-  - RULE-SET,applications,DIRECT
+  - DOMAIN-SUFFIX,minecraft.net,DIRECT
   - DOMAIN,clash.razord.top,DIRECT
   - DOMAIN,yacd.haishan.me,DIRECT
-  - DOMAIN,koyso.com,DIRECT
-  - DOMAIN,koysobackup.com,DIRECT
-  - DOMAIN,playzip.com,DIRECT
+  - DOMAIN-SUFFIX,koyso.com,DIRECT
+  - DOMAIN-SUFFIX,koysobackup.com,DIRECT
+  - DOMAIN-SUFFIX,playzip.com,DIRECT
   - DOMAIN-SUFFIX,gkd.li,DIRECT
+  - RULE-SET,applications,DIRECT
   - RULE-SET,private,DIRECT
   - RULE-SET,reject,REJECT
   - RULE-SET,icloud,DIRECT
