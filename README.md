@@ -15,6 +15,8 @@
 https://github.com/lyc452/chromego_merge/raw/main/sub/merged_proxies_new.yaml
 ```
 
+订阅生成脚本会读取 `urls` 目录下的八类来源，并将 Clash、Hysteria、Hysteria2、Xray VLESS、sing-box Hysteria、Mieru 和 ShadowQUIC 节点转换为 Mihomo 配置。NaiveProxy 暂无 Mihomo 原生代理类型，因此会在日志中提示并跳过，避免将其错误转换成普通 HTTPS 代理。
+
 ### 通用 base64 订阅
 
 ```
