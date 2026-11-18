@@ -74,6 +74,19 @@ proxies:
   skip-cert-verify: true
   alpn:
   - h3
+- name: United States_San Jose_hy_1
+  type: hysteria
+  server: 137.175.82.42
+  port: 20022
+  auth_str: dongtaiwang.com
+  up: 1000
+  down: 1000
+  fast-open: true
+  protocol: udp
+  sni: bing.com
+  skip-cert-verify: true
+  alpn:
+  - h3
 - name: United States_San Jose_hy_2
   type: hysteria
   server: 137.175.82.44
@@ -136,6 +149,19 @@ proxies:
   skip-cert-verify: true
   alpn:
   - h3
+- name: United States_San Jose_hysteria_sb_1
+  type: hysteria
+  server: 137.175.82.42
+  port: 20022
+  up: 20
+  down: 20
+  auth-str: dongtaiwang.com
+  fast-open: true
+  sni: bing.com
+  tls: true
+  skip-cert-verify: true
+  alpn:
+  - h3
 - name: United States_San Jose_mieru_mieru_0_0_0_0
   type: mieru
   server: 198.200.57.152
@@ -167,23 +193,38 @@ proxies:
   congestion-controller: bbr
   zero-rtt: true
   udp-over-stream: false
+- name: United States_Los Angeles_shadowquic_shadowquic_3
+  type: shadowquic
+  server: 142.249.37.83
+  port: 52889
+  username: dongtaiwang.com
+  password: dongtaiwang.com
+  sni: www.yahoo.com
+  alpn:
+  - h3
+  congestion-controller: bbr
+  zero-rtt: true
+  udp-over-stream: false
 proxy-groups:
 - name: 节点选择
   type: select
   proxies:
   - 自动选择
-  - United States_San Jose_hysteria_sb_0
   - United States_San Jose_hy_2
-  - France_Paris_hysteria_4_5
-  - United States_San Jose_hy_0
+  - United States_Los Angeles_shadowquic_shadowquic_3
   - France_Paris_vless_xray_0_0_0
-  - France_Paris_hy2_0
-  - United States_San Jose_mieru_mieru_0_0_0_0
   - United States_San Jose_shadowquic_shadowquic_0
-  - France_Paris_hysteria_0_1
   - United States_Los Angeles_shadowquic_shadowquic_2
-  - Germany_Unknown_hy_4
   - United States_Unknown_hysteria_8_9
+  - United States_San Jose_hy_0
+  - United States_San Jose_hysteria_sb_0
+  - France_Paris_hysteria_0_1
+  - United States_San Jose_mieru_mieru_0_0_0_0
+  - France_Paris_hy2_0
+  - Germany_Unknown_hy_4
+  - United States_San Jose_hysteria_sb_1
+  - United States_San Jose_hy_1
+  - France_Paris_hysteria_4_5
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
@@ -194,14 +235,17 @@ proxy-groups:
   - France_Paris_hysteria_4_5
   - United States_Unknown_hysteria_8_9
   - United States_San Jose_hy_0
+  - United States_San Jose_hy_1
   - United States_San Jose_hy_2
   - Germany_Unknown_hy_4
   - France_Paris_hy2_0
   - France_Paris_vless_xray_0_0_0
   - United States_San Jose_hysteria_sb_0
+  - United States_San Jose_hysteria_sb_1
   - United States_San Jose_mieru_mieru_0_0_0_0
   - United States_San Jose_shadowquic_shadowquic_0
   - United States_Los Angeles_shadowquic_shadowquic_2
+  - United States_Los Angeles_shadowquic_shadowquic_3
 rule-providers:
   reject:
     type: http
