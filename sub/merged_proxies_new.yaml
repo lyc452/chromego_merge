@@ -251,13 +251,13 @@ proxies:
   password: github.com/Alvin9999-newpac/fanqiang
   transport: TCP
   port: 33556
-- name: United States_San Jose_shadowquic_shadowquic_0
+- name: United States_Unknown_shadowquic_shadowquic_0
   type: shadowquic
-  server: 198.2.214.27
-  port: 22448
+  server: 198.247.0.165
+  port: 25443
   username: dongtaiwang.com
   password: dongtaiwang.com
-  sni: www.bing.com
+  sni: www.yahoo.com
   alpn:
   - h3
   congestion-controller: bbr
@@ -280,26 +280,26 @@ proxy-groups:
   type: select
   proxies:
   - 自动选择
-  - France_Paris_vless_xray_6_0_0
-  - France_Paris_hy2_4
-  - France_Paris_vless_xray_2_0_0
+  - United States_Los Angeles_shadowquic_shadowquic_2
+  - France_Paris_hysteria_4_5
+  - United States_San Jose_hysteria_sb_2
   - United States_San Jose_hysteria_sb_0
-  - France_Paris_hysteria_0_1
-  - United States_San Jose_hy_3
+  - United States_Unknown_hysteria_8_9
+  - United States_Unknown_shadowquic_shadowquic_0
+  - United States_San Jose_hysteria_sb_3
+  - Germany_Unknown_hy_4
+  - United States_San Jose_mieru_mieru_0_0_0_0
   - France_Paris_hy2_0
   - United States_San Jose_hy_0
-  - United States_San Jose_mieru_mieru_0_0_0_0
   - United States_San Jose_hy_2
-  - United States_Los Angeles_shadowquic_shadowquic_2
-  - United States_Unknown_hysteria_8_9
-  - United States_San Jose_hysteria_sb_2
-  - Germany_Unknown_hy_4
-  - France_Paris_hy2_1
-  - United States_San Jose_hysteria_sb_3
-  - France_Paris_hysteria_4_5
-  - United States_San Jose_shadowquic_shadowquic_0
-  - France_Paris_vless_xray_4_0_0
+  - France_Paris_vless_xray_6_0_0
+  - United States_San Jose_hy_3
+  - France_Paris_hy2_4
   - France_Paris_vless_xray_0_0_0
+  - France_Paris_hy2_1
+  - France_Paris_vless_xray_2_0_0
+  - France_Paris_vless_xray_4_0_0
+  - France_Paris_hysteria_0_1
   - France_Paris_hy2_2
 - name: 自动选择
   type: url-test
@@ -326,7 +326,7 @@ proxy-groups:
   - United States_San Jose_hysteria_sb_2
   - United States_San Jose_hysteria_sb_3
   - United States_San Jose_mieru_mieru_0_0_0_0
-  - United States_San Jose_shadowquic_shadowquic_0
+  - United States_Unknown_shadowquic_shadowquic_0
   - United States_Los Angeles_shadowquic_shadowquic_2
 rule-providers:
   reject:
