@@ -37,30 +37,66 @@ proxies:
   protocol: udp
   up: 11 Mbps
   down: 55 Mbps
-- name: France_Paris_hysteria_4_5
-  type: hysteria
-  server: 62.210.70.191
-  port: 23556
-  auth-str: github.com/Alvin9999-newpac/fanqiang
-  sni: bing.com
+- name: France_Paris_hysteria2_2_3
+  type: hysteria2
+  server: 2001:bc8:32d7:17b::10
+  port: 22000
+  password: dongtaiwang.com
+  sni: www.microsoft.com
   skip-cert-verify: true
   alpn:
   - h3
-  protocol: udp
-  up: 11 Mbps
-  down: 55 Mbps
-- name: United States_Unknown_hysteria_8_9
-  type: hysteria
-  server: 2a14:7584:d097::a
-  port: 54177
-  auth-str: dongtaiwang.com
-  sni: apple.com
+  udp: true
+- name: France_Paris_hysteria2_3_4
+  type: hysteria2
+  server: 2001:bc8:32d7:17b::17
+  port: 22000
+  password: dongtaiwang.com
+  sni: www.microsoft.com
   skip-cert-verify: true
   alpn:
   - h3
-  protocol: udp
-  up: 11 Mbps
-  down: 55 Mbps
+  udp: true
+- name: France_Paris_hysteria2_4_5
+  type: hysteria2
+  server: 2001:bc8:32d7:17b::11
+  port: 22000
+  password: dongtaiwang.com
+  sni: www.microsoft.com
+  skip-cert-verify: true
+  alpn:
+  - h3
+  udp: true
+- name: France_Paris_hysteria2_6_7
+  type: hysteria2
+  server: 2001:bc8:32d7:17b::13
+  port: 22000
+  password: dongtaiwang.com
+  sni: www.microsoft.com
+  skip-cert-verify: true
+  alpn:
+  - h3
+  udp: true
+- name: France_Paris_hysteria2_8_9
+  type: hysteria2
+  server: 2001:bc8:32d7:17b::15
+  port: 22000
+  password: dongtaiwang.com
+  sni: www.microsoft.com
+  skip-cert-verify: true
+  alpn:
+  - h3
+  udp: true
+- name: France_Paris_hysteria2_10_11
+  type: hysteria2
+  server: 2001:bc8:32d7:17b::16
+  port: 22000
+  password: dongtaiwang.com
+  sni: www.microsoft.com
+  skip-cert-verify: true
+  alpn:
+  - h3
+  udp: true
 - name: United States_San Jose_hy_0
   type: hysteria
   server: 137.175.82.41
@@ -280,27 +316,31 @@ proxy-groups:
   type: select
   proxies:
   - 自动选择
-  - United States_San Jose_hy_3
-  - Germany_Unknown_hy_4
-  - France_Paris_hysteria_0_1
-  - France_Paris_vless_xray_0_0_0
-  - France_Paris_vless_xray_2_0_0
-  - France_Paris_hy2_4
-  - United States_Unknown_hysteria_8_9
-  - United States_San Jose_hysteria_sb_2
-  - France_Paris_hy2_0
-  - United States_Los Angeles_shadowquic_shadowquic_2
-  - France_Paris_hy2_2
-  - United States_San Jose_hy_2
   - United States_San Jose_mieru_mieru_0_0_0_0
-  - France_Paris_hysteria_4_5
   - France_Paris_hy2_1
-  - United States_San Jose_hysteria_sb_0
-  - France_Paris_vless_xray_4_0_0
-  - United States_San Jose_hy_0
-  - United States_San Jose_hysteria_sb_3
+  - France_Paris_hysteria2_6_7
   - France_Paris_vless_xray_6_0_0
+  - France_Paris_hy2_0
+  - United States_San Jose_hy_3
+  - France_Paris_hysteria2_2_3
+  - United States_San Jose_hysteria_sb_2
+  - France_Paris_hysteria2_8_9
+  - United States_San Jose_hysteria_sb_0
+  - France_Paris_hysteria2_10_11
+  - France_Paris_vless_xray_2_0_0
+  - United States_San Jose_hy_0
+  - France_Paris_hy2_4
+  - France_Paris_hysteria_0_1
+  - United States_San Jose_hysteria_sb_3
+  - France_Paris_vless_xray_4_0_0
+  - United States_Los Angeles_shadowquic_shadowquic_2
   - United States_Unknown_shadowquic_shadowquic_0
+  - United States_San Jose_hy_2
+  - Germany_Unknown_hy_4
+  - France_Paris_hysteria2_3_4
+  - France_Paris_hy2_2
+  - France_Paris_vless_xray_0_0_0
+  - France_Paris_hysteria2_4_5
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
@@ -308,8 +348,12 @@ proxy-groups:
   tolerance: 50
   proxies:
   - France_Paris_hysteria_0_1
-  - France_Paris_hysteria_4_5
-  - United States_Unknown_hysteria_8_9
+  - France_Paris_hysteria2_2_3
+  - France_Paris_hysteria2_3_4
+  - France_Paris_hysteria2_4_5
+  - France_Paris_hysteria2_6_7
+  - France_Paris_hysteria2_8_9
+  - France_Paris_hysteria2_10_11
   - United States_San Jose_hy_0
   - United States_San Jose_hy_2
   - United States_San Jose_hy_3
